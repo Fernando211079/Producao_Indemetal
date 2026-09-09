@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIGP | Planejamento da Produção</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+
+margin:0;
+background:#6d6d6d;
+font-family:Orbitron;
+color:white;
+
+}
+
+header{
+
+background:#111;
+
+padding:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+box-shadow:0 0 20px #000;
+
+}
+
+h1{
+
+margin:0;
+
+font-size:28px;
+
+color:#ff0000;
+
+letter-spacing:3px;
+
+}
+
+.container{
+
+padding:25px;
+
+}
+
+.cards{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:20px;
+
+margin-top:20px;
+
+}
+
+.card{
+
+background:#151515;
+
+border-radius:15px;
+
+padding:20px;
+
+border:1px solid #00eaff;
+
+box-shadow:0 0 20px rgba(0,255,255,.15);
+
+}
+
+.card h3{
+
+margin:0;
+
+font-size:13px;
+
+color:#bbb;
+
+}
+
+.numero{
+
+margin-top:15px;
+
+font-size:40px;
+
+font-weight:bold;
+
+color:#00ff88;
+
+}
+
+table{
+
+width:100%;
+
+margin-top:30px;
+
+border-collapse:collapse;
+
+}
+
+th{
+
+background:#111;
+
+padding:15px;
+
+color:#00eaff;
+
+}
+
+td{
+
+background:#202020;
+
+padding:12px;
+
+text-align:center;
+
+border-bottom:1px solid #444;
+
+}
+
+button{
+
+padding:10px 20px;
+
+background:#00eaff;
+
+border:none;
+
+font-family:Orbitron;
+
+cursor:pointer;
+
+border-radius:8px;
+
+font-weight:bold;
+
+}
+
+button:hover{
+
+transform:scale(1.03);
+
+}
+
+</style>
+
+<script src="js/auto-scale.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>SISTEMA INTEGRADO DE GESTÃO DA PRODUÇÃO</h1>
+
+<button onclick="window.location='index.html'">
+
+VOLTAR
+
+</button>
+
+</header>
+
+<div class="container">
+
+<div class="cards">
+
+<div class="card">
+
+<h3>OP's EM ABERTO</h3>
+
+<div class="numero" id="ops">
+
+0
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>IMPRESSÕES PENDENTES</h3>
+
+<div class="numero" id="imp">
+
+0
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>DIAS COMPROMETIDOS</h3>
+
+<div class="numero" id="dias">
+
+0
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>ATRASO PREVISTO</h3>
+
+<div class="numero" id="atraso">
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>OP</th>
+
+<th>CLIENTE</th>
+
+<th>REFERÊNCIA</th>
+
+<th>FAMÍLIA</th>
+
+<th>IMPRESSÕES</th>
+
+<th>PRAZO</th>
+
+<th>SITUAÇÃO</th>
+
+</tr>
+
+</thead>
+
+<tbody id="listaOP">
+
+</tbody>
+
+</table>
+
+</div>
+
+</body>
+
+</html>

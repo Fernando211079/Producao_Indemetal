@@ -1,0 +1,162 @@
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#111418;color:#e0e0e0;font-family:'Orbitron',sans-serif;padding:28px;font-size:12px;line-height:1.6}
+h1{color:#ff0000;font-size:1rem;letter-spacing:4px;margin-bottom:4px}
+.sub{color:rgba(255,255,255,0.3);font-size:0.55rem;letter-spacing:2px;margin-bottom:30px}
+
+.sec{margin-bottom:30px}
+.sec-title{font-size:0.58rem;letter-spacing:3px;border-left:3px solid;padding-left:10px;margin-bottom:14px;text-transform:uppercase}
+.sec-title.tirar  {color:#ff4444;border-color:#ff4444}
+.sec-title.melhorar{color:#ff9d00;border-color:#ff9d00}
+.sec-title.add    {color:#00ff95;border-color:#00ff95}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+
+.card{border-radius:10px;padding:15px 17px;border:1px solid}
+.card.tirar   {background:rgba(255,68,68,0.06);  border-color:rgba(255,68,68,0.25)}
+.card.melhorar{background:rgba(255,157,0,0.06);  border-color:rgba(255,157,0,0.25)}
+.card.add     {background:rgba(0,255,149,0.05);  border-color:rgba(0,255,149,0.2)}
+
+.card-title{font-size:0.65rem;font-weight:700;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-title.tirar   {color:#ff6666}
+.card-title.melhorar{color:#ff9d00}
+.card-title.add     {color:#00ff95}
+
+.chip{font-size:0.44rem;padding:2px 7px;border-radius:20px;font-weight:700;letter-spacing:0.5px;flex-shrink:0}
+.chip.tirar   {background:rgba(255,68,68,0.2);  color:#ff6666; border:1px solid rgba(255,68,68,0.4)}
+.chip.melhorar{background:rgba(255,157,0,0.2);  color:#ff9d00; border:1px solid rgba(255,157,0,0.4)}
+.chip.add     {background:rgba(0,255,149,0.15); color:#00ff95; border:1px solid rgba(0,255,149,0.35)}
+.chip.add.medio{background:rgba(0,242,255,0.12);color:#00f2ff; border:1px solid rgba(0,242,255,0.3)}
+.chip.add.grande{background:rgba(167,139,250,0.15);color:#a78bfa;border:1px solid rgba(167,139,250,0.3)}
+
+.card-desc{font-size:0.56rem;color:rgba(255,255,255,0.55);font-family:sans-serif;line-height:1.75}
+.card-desc strong{color:rgba(255,255,255,0.85)}
+
+.divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:28px 0}
+
+.resumo{background:rgba(20,25,30,0.95);border:1px solid rgba(0,242,255,0.2);border-radius:12px;padding:18px 20px;margin-top:6px}
+.resumo-title{font-size:0.55rem;color:#00f2ff;letter-spacing:2px;margin-bottom:12px}
+.resumo-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.55rem}
+.resumo-row:last-child{border-bottom:none}
+.resumo-row span:first-child{color:rgba(255,255,255,0.55);font-family:sans-serif}
+.tag-facil {color:#00ff95;font-weight:700}
+.tag-medio {color:#00f2ff;font-weight:700}
+.tag-grande{color:#a78bfa;font-weight:700}
+.tag-tirar {color:#ff6666;font-weight:700}
+.tag-melhora{color:#ff9d00;font-weight:700}
+
+footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.15);font-size:11px;font-family:sans-serif}
+</style>
+</head>
+<body>
+
+<h1>INDEMETAL — ANÁLISE DO SISTEMA</h1>
+<div class="sub">O QUE TIRAR · O QUE MELHORAR · O QUE ACRESCENTAR</div>
+
+
+<div class="sec">
+  <div class="sec-title tirar">❌ TIRAR / SIMPLIFICAR</div>
+  <div class="grid">
+
+    <div class="card tirar">
+      <div class="card-title tirar"><span class="chip tirar">REMOVER</span> KPI "DIAS COMPROMETIDOS" no cadastro de OP</div>
+      <div class="card-desc">O card exibe a <strong>soma simples de diasNecessarios de todas as OPs</strong> — esse número não significa nada na prática porque OPs de famílias diferentes rodam em paralelo. Uma fábrica com 6 famílias rodando ao mesmo tempo não tem 120 dias de atraso só porque a soma dá 120. <strong>Substitua por "HORAS COMPROMETIDAS TOTAL"</strong>, que é o número que realmente representa a dívida.</div>
+    </div>
+
+    <div class="card tirar">
+      <div class="card-title tirar"><span class="chip tirar">REMOVER</span> Campo "Tempo Estimado" no formulário de OP</div>
+      <div class="card-desc">O painel inteligente já mostra "Tempo previsto" e "Dias necessários". O campo <strong>"Tempo Estimado" no formulário (read-only)</strong> é redundante — repete o que está ao lado. Ocupa espaço e não é salvo no Firestore. Pode ser removido sem perda nenhuma.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="sec">
+  <div class="sec-title melhorar">⚡ MELHORAR (já existe, mas pode ser mais útil)</div>
+  <div class="grid">
+
+    <div class="card melhorar">
+      <div class="card-title melhorar"><span class="chip melhorar">MELHORIA</span> diasNecessarios salvo no Firestore está desatualizado</div>
+      <div class="card-desc">O campo <strong>diasNecessarios</strong> é calculado na hora do cadastro com <code>horas ÷ 8</code> fixo, não com a fórmula real da família (T1+T2 × eficiência). Se a configuração mudar depois, os valores antigos ficam errados. A solução é <strong>não salvar diasNecessarios</strong> no Firestore e sempre calcular na hora de exibir — igual ao que o calendário e carga-maquinas já fazem.</div>
+    </div>
+
+    <div class="card melhorar">
+      <div class="card-title melhorar"><span class="chip melhorar">MELHORIA</span> Calendário de carga não mostra o mês do prazo quando está longe</div>
+      <div class="card-desc">Se uma OP tem prazo em setembro e você está olhando julho, o calendário de julho fica vazio para ela. <strong>Uma seta ou badge no cabeçalho do calendário</strong> indicando "X OPs com prazo fora do mês atual" ajudaria a não perder OPs do radar.</div>
+    </div>
+
+    <div class="card melhorar">
+      <div class="card-title melhorar"><span class="chip melhorar">MELHORIA</span> Botão "Atualizar" na carga de máquinas não atualiza a família aberta</div>
+      <div class="card-desc">Quando você clica em <strong>↺ ATUALIZAR</strong>, os mini-cards são recarregados e a família selecionada é re-aberta via <code>selecionarFamilia()</code> — mas o calendário dentro dela <strong>não é recriado com os dados novos</strong>. A instância antiga do CalendarioCarga persiste. Já está parcialmente corrigido no código mas merece validação.</div>
+    </div>
+
+    <div class="card melhorar">
+      <div class="card-title melhorar"><span class="chip melhorar">MELHORIA</span> Pesquisa de OP faz nova query ao Firestore a cada tecla</div>
+      <div class="card-desc">A função <code>pesquisarOP()</code> dispara um <strong>get() no Firestore a cada keystroke</strong>. Com muitas OPs isso gera muitas leituras cobradas. O ideal é <strong>filtrar localmente</strong> sobre o array que já foi carregado por <code>listarOPs()</code>, sem nova query.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="sec">
+  <div class="sec-title add">✅ ACRESCENTAR (novos recursos)</div>
+  <div class="grid">
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add">FÁCIL</span> Indicador de OPs atrasadas no menu principal</div>
+      <div class="card-desc">No <strong>index.html</strong>, um número vermelho piscante ao lado do botão "CARGA MÁQ." mostrando quantas OPs têm prazo vencido. <strong>Uma leitura rápida do Firestore</strong> na carga da página já resolve — sem nenhuma tela nova.</div>
+    </div>
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add">FÁCIL</span> Exportar lista de OPs para CSV</div>
+      <div class="card-desc">Um botão <strong>"⬇ EXPORTAR CSV"</strong> na tela de cadastro de OP que gera um arquivo com todas as OPs filtradas (status + família atuais). Útil para enviar por e-mail ou abrir no Excel. <strong>Zero dependência externa</strong> — só JavaScript puro, menos de 10 linhas.</div>
+    </div>
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add">FÁCIL</span> Campo de busca na tela de Carga de Máquinas</div>
+      <div class="card-desc">Hoje para ver uma OP específica você precisa entrar no card da família certa. Um <strong>campo de busca por OP/cliente</strong> no topo da tela destacaria instantaneamente em qual família e posição da fila ela está.</div>
+    </div>
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add medio">MÉDIO</span> Histórico de OPs finalizadas com tempo real vs. planejado</div>
+      <div class="card-desc">Quando uma OP é finalizada, salvar a <strong>diferença entre o prazo e a dataFinalizacao</strong>. Com o tempo isso gera um relatório de <strong>pontualidade por família</strong> — quantas % das OPs foram entregues no prazo, com atraso médio de X dias. Dados já existem no Firestore, só falta a tela de análise.</div>
+    </div>
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add medio">MÉDIO</span> Alerta de conflito de capacidade ao cadastrar OP</div>
+      <div class="card-desc">No cadastro, quando o usuário informa família + prazo, o sistema já sabe a carga atual da família. Poderia <strong>avisar em tempo real no painel inteligente</strong>: "⚠️ Rotativa já tem 18 dias comprometidos. Essa OP não cabe antes do prazo." Usa os dados que já estão carregados em CONFIG.</div>
+    </div>
+
+    <div class="card add">
+      <div class="card-title add"><span class="chip add grande">MAIOR</span> Dashboard resumo para gestores (visão executiva)</div>
+      <div class="card-desc">Uma tela única com: <strong>6 gauges</strong> de ocupação por família, <strong>calendário geral do mês</strong> mostrando os dias críticos, <strong>top 5 OPs mais urgentes</strong> e <strong>tendência da semana</strong> (produção realizada vs. planejada). Seria a tela que um gerente abre de manhã para ter o pulso da fábrica em 5 segundos.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<hr class="divider" />
+<div class="resumo">
+  <div class="resumo-title">RESUMO DE PRIORIDADE</div>
+  <div class="resumo-row"><span>❌ Remover KPI "Dias Comprometidos" (cadastro-op)</span><span class="tag-tirar">TIRAR</span></div>
+  <div class="resumo-row"><span>❌ Remover campo "Tempo Estimado" redundante no formulário</span><span class="tag-tirar">TIRAR</span></div>
+  <div class="resumo-row"><span>⚡ Pesquisa de OP filtrar localmente (sem nova query)</span><span class="tag-melhora">MELHORIA RÁPIDA</span></div>
+  <div class="resumo-row"><span>⚡ diasNecessarios: calcular sempre, não salvar fixo</span><span class="tag-melhora">MELHORIA MÉDIA</span></div>
+  <div class="resumo-row"><span>✅ Exportar OPs para CSV</span><span class="tag-facil">FÁCIL</span></div>
+  <div class="resumo-row"><span>✅ Indicador de OPs atrasadas no menu</span><span class="tag-facil">FÁCIL</span></div>
+  <div class="resumo-row"><span>✅ Alerta de conflito de capacidade no cadastro</span><span class="tag-medio">MÉDIO</span></div>
+  <div class="resumo-row"><span>✅ Histórico pontualidade por família</span><span class="tag-medio">MÉDIO</span></div>
+  <div class="resumo-row"><span>✅ Dashboard executivo (visão de gestão)</span><span class="tag-grande">MAIOR ESFORÇO</span></div>
+</div>
+
+<footer>Made with IBM Bob</footer>
+</body>
+</html>

@@ -1,0 +1,252 @@
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1e26;color:#e0e0e0;font-family:'Orbitron',sans-serif;padding:28px;font-size:13px;line-height:1.6}
+h1{color:#ff0000;font-size:1.1rem;letter-spacing:4px;margin-bottom:6px}
+.sub{color:rgba(255,255,255,0.35);font-size:0.6rem;letter-spacing:2px;margin-bottom:28px}
+
+/* seção */
+.sec-title{font-size:0.58rem;color:#00f2ff;letter-spacing:3px;border-left:3px solid #00f2ff;padding-left:10px;margin:28px 0 14px;text-transform:uppercase}
+
+/* grid de cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:8px}
+
+.card{background:rgba(20,25,30,0.95);border:1px solid rgba(0,242,255,0.22);border-radius:12px;padding:16px 18px}
+.card-name{font-size:0.68rem;font-weight:700;letter-spacing:1.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:0.50rem;font-weight:700;letter-spacing:0.5px}
+.from-config{background:rgba(0,242,255,0.15);color:#00f2ff;border:1px solid rgba(0,242,255,0.4)}
+.calculado{background:rgba(0,255,149,0.15);color:#00ff95;border:1px solid rgba(0,255,149,0.4)}
+.acumulado{background:rgba(255,157,0,0.15);color:#ff9d00;border:1px solid rgba(255,157,0,0.4)}
+
+.card-desc{font-size:0.58rem;color:rgba(255,255,255,0.55);margin-bottom:10px;font-family:sans-serif;line-height:1.7}
+
+.formula-box{background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px 12px}
+.formula-label{font-size:0.48rem;color:rgba(255,255,255,0.3);letter-spacing:1.5px;margin-bottom:5px}
+.formula{font-size:0.60rem;color:#fff;font-family:monospace;line-height:1.8}
+.formula em{color:#00f2ff;font-style:normal}
+.formula b{color:#ff9d00}
+.formula s{color:#00ff95;text-decoration:none}
+
+/* tabela de turnos */
+table{width:100%;border-collapse:collapse;font-size:0.56rem;margin-top:6px}
+th{color:rgba(255,255,255,0.35);letter-spacing:1px;padding:5px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.08)}
+td{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.7)}
+tr:last-child td{border-bottom:none}
+.hl{color:#00f2ff;font-weight:700}
+
+/* nota */
+.nota{background:rgba(0,242,255,0.05);border:1px solid rgba(0,242,255,0.15);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:0.56rem;color:rgba(255,255,255,0.5);font-family:sans-serif;line-height:1.8}
+.nota strong{color:#00f2ff}
+
+footer{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.15);font-size:11px;font-family:sans-serif}
+</style>
+</head>
+<body>
+
+<h1>INDEMETAL</h1>
+<div class="sub">CARGA DE MÁQUINAS — RESUMO DOS CARDS DO PAINEL DE DETALHE</div>
+
+
+<div class="sec-title">DADOS DE CONFIGURAÇÃO — vêm do painel Configurações</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-name"><span class="badge from-config">CONFIGURAÇÃO</span> MÁQUINAS</div>
+    <div class="card-desc">Quantidade de máquinas físicas disponíveis na família. Usado como limite máximo de máquinas ativas em cada turno.</div>
+    <div class="formula-box">
+      <div class="formula-label">ORIGEM</div>
+      <div class="formula"><em>CONFIG.familias[key].maquinas</em><br />Definido em Configurações → card da família</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge from-config">CONFIGURAÇÃO</span> OP. ☀️ T1</div>
+    <div class="card-desc">Operadores no 1º turno. O sistema usa <b>min(máquinas, op_t1)</b> para saber quantas máquinas rodam em T1 — se tiver menos operadores que máquinas, só roda o que tem operador.</div>
+    <div class="formula-box">
+      <div class="formula-label">ORIGEM</div>
+      <div class="formula"><em>CONFIG.familias[key].op_t1</em><br />Máquinas ativas T1 = <b>min(maquinas, op_t1)</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge from-config">CONFIGURAÇÃO</span> OP. 🌙 T2</div>
+    <div class="card-desc">Operadores no 2º turno. Mesma lógica do T1. T2 tem jornada menor (8h/7h) contra T1 (9h/8h), portanto contribui menos com capacidade.</div>
+    <div class="formula-box">
+      <div class="formula-label">ORIGEM</div>
+      <div class="formula"><em>CONFIG.familias[key].op_t2</em><br />Máquinas ativas T2 = <b>min(maquinas, op_t2)</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge from-config">CONFIGURAÇÃO</span> META P/H</div>
+    <div class="card-desc">Meta de impressões por hora por máquina, definida para a família. É o valor bruto — o sistema aplica a eficiência global (%) por cima antes de qualquer cálculo.</div>
+    <div class="formula-box">
+      <div class="formula-label">ORIGEM</div>
+      <div class="formula"><em>CONFIG.familias[key].metaHora</em><br />Meta real usada = <b>metaHora × eficiência%</b></div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="sec-title">CAPACIDADE CALCULADA — derivados da configuração</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-name"><span class="badge calculado">CALCULADO</span> CAP./DIA</div>
+    <div class="card-desc">Impressões que a família consegue produzir num dia útil normal (segunda a quinta). Considera ambos os turnos e a eficiência global.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA — seg a qui</div>
+      <div class="formula">
+        <em>ativasT1</em> = min(maquinas, op_t1)<br />
+        <em>ativasT2</em> = min(maquinas, op_t2)<br />
+        <b>capDia</b> = (<em>ativasT1</em> × 9h + <em>ativasT2</em> × 8h)<br />
+                 × <b>metaHora × eficiência</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(255,157,0,0.3)">
+    <div class="card-name"><span class="badge calculado">CALCULADO</span> CAP. SEXTA</div>
+    <div class="card-desc">Sexta-feira tem jornada reduzida (T1=8h, T2=7h), então a capacidade é ligeiramente menor. O sistema usa a média ponderada (4 dias normais + 1 sexta) nos cálculos de dias.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA — sexta</div>
+      <div class="formula">
+        <b>capSex</b> = (<em>ativasT1</em> × 8h + <em>ativasT2</em> × 7h)<br />
+                 × <b>metaHora × eficiência</b><br /><br />
+        <s>capMédia/dia</s> = (capDia×4 + capSex×1) ÷ 5
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="sec-title">CARGA DA FILA — calculados sobre as OPs abertas</div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> HORAS COMP.</div>
+    <div class="card-desc">Soma das horas necessárias de todas as OPs abertas desta família. É a "dívida de horas" que a família tem pela frente.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA por OP</div>
+      <div class="formula">
+        horasOP = <em>impressoes</em> ÷ (<b>metaHora × eficiência</b>)<br /><br />
+        <b>HORAS COMP.</b> = Σ horasOP (todas as OPs abertas)
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> DIAS COMP.</div>
+    <div class="card-desc">Quantos dias úteis a família precisa para executar toda a fila. Calculado sobre o total de horas (não soma de arredondamentos por OP) para evitar erro acumulado.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA</div>
+      <div class="formula">
+        horasProdutivas/dia =<br />
+          (ativasT1×hT1sq + ativasT2×hT2sq)×4<br />
+          + (ativasT1×hT1sex + ativasT2×hT2sex)<br />
+          ÷ 5   <em>(sem multiplicar pela meta)</em><br /><br />
+        <b>DIAS COMP.</b> = ⌈ HORAS COMP. ÷ horasProdutivas/dia ⌉
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> MÉD. H/DIA</div>
+    <div class="card-desc">Média simples de horas comprometidas por dia. Útil para ver se a fila está distribuída uniformemente ou concentrada.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA</div>
+      <div class="formula">
+        <b>MÉD. H/DIA</b> = HORAS COMP. ÷ DIAS COMP.<br /><br />
+        <em>Exibido como "--" se DIAS COMP. = 0</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> OPs ABERTAS</div>
+    <div class="card-desc">Contagem simples das OPs com status ABERTA para esta família.</div>
+    <div class="formula-box">
+      <div class="formula-label">ORIGEM</div>
+      <div class="formula"><b>grupo.ops.length</b><br />Array filtrado por família, apenas status = "ABERTA"</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> IMPRESSÕES</div>
+    <div class="card-desc">Soma total de impressões pendentes de todas as OPs abertas desta família.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA</div>
+      <div class="formula"><b>IMPRESSÕES</b> = Σ op.impressoes (OPs abertas)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-name"><span class="badge acumulado">CARGA</span> CONCLUSÃO PREV.</div>
+    <div class="card-desc">Data estimada em que a fila toda estará zerada, adicionando DIAS COMP. a partir de hoje em dias úteis (pula sábados e domingos).</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA</div>
+      <div class="formula">
+        <b>CONCLUSÃO</b> = hoje + DIAS COMP. (dias úteis)<br /><br />
+        <em>Exibido como "--" se não há OPs abertas</em>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="sec-title">BARRA DE CARGA — ocupação da fila</div>
+<div class="grid">
+  <div class="card" style="grid-column:1/-1">
+    <div class="card-name"><span class="badge calculado">INDICADOR</span> % DE CARGA (barra)</div>
+    <div class="card-desc">Percentual que indica o quanto da capacidade de 1 mês de trabalho (20 dias úteis) está comprometida. Base de 20 dias é o padrão de referência mensal.</div>
+    <div class="formula-box">
+      <div class="formula-label">FÓRMULA</div>
+      <div class="formula">
+        <b>%</b> = ( DIAS COMP. ÷ 20 ) × 100<br /><br />
+        <s>🟢 Verde</s>  = abaixo de 70% — fila tranquila<br />
+        <b>🟡 Amarelo</b> = 70–99% — atenção, fila pesada<br />
+        <em>🔴 Vermelho</em> = ≥ 100% — capacidade excedida (sobrecarregada)
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="sec-title">JORNADAS CONFIGURADAS (referência dos cálculos)</div>
+<table>
+  <thead>
+    <tr><th>TURNO</th><th>SEG–QUI</th><th>SEXTA</th><th>SEMANA</th><th>COMO ENTRA NO CÁLCULO</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>☀️ 1º Turno</td>
+      <td class="hl">9h/dia</td>
+      <td class="hl">8h/dia</td>
+      <td>44h/semana</td>
+      <td>ativasT1 × hT1 × metaHora × eficiência</td>
+    </tr>
+    <tr>
+      <td>🌙 2º Turno</td>
+      <td class="hl">8h/dia</td>
+      <td class="hl">7h/dia</td>
+      <td>39h/semana</td>
+      <td>ativasT2 × hT2 × metaHora × eficiência</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="nota">
+  <strong>Regra do min(máquinas, operadores):</strong> se a família tem 8 máquinas mas apenas 4 operadores no T1, só 4 máquinas produzem — o número de operadores é o gargalo. Se o número de operadores for maior que o de máquinas, todas as máquinas rodam mas o excedente de operadores não multiplica a produção.<br /><br />
+  <strong>Eficiência global:</strong> todas as fórmulas de capacidade e horas usam <strong>metaHora × eficiência%</strong>. Se a eficiência estiver em 80%, uma família com meta 530 P/H efetivamente produz 424 P/H nos cálculos. Ajuste em Configurações → Eficiência Global.
+</div>
+
+<footer>Made with IBM Bob</footer>
+</body>
+</html>

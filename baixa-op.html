@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEMETAL | Baixa de OP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cadastro-op.css">
+    <script src="js/auto-scale.js"></script>
+</head>
+<body>
+
+<header class="top-bar">
+    <div class="logo">
+        <h1>INDEMETAL</h1>
+        <span>Sistema Integrado de Gestão da Produção</span>
+    </div>
+    <button class="btn-voltar" onclick="window.location='index.html'">VOLTAR</button>
+</header>
+
+<main class="container">
+
+    <h2>BAIXA DE ORDEM DE PRODUÇÃO</h2>
+
+    <!-- KPIs -->
+    <section class="cards">
+        <div class="card">
+            <h3>OP'S EM ABERTO</h3>
+            <div class="numero" id="kpiOps">0</div>
+        </div>
+        <div class="card">
+            <h3>IMPRESSÕES PENDENTES</h3>
+            <div class="numero" id="kpiImp">0</div>
+        </div>
+        <div class="card">
+            <h3>HORAS COMPROMETIDAS</h3>
+            <div class="numero" id="kpiHoras" style="font-size:1.3rem">0h</div>
+        </div>
+        <div class="card">
+            <h3>URGENTES / ATRASADAS</h3>
+            <div class="numero" id="kpiUrgentes">0</div>
+        </div>
+    </section>
+
+    <!-- MENSAGEM DO SISTEMA -->
+    <div id="mensagemSistema"></div>
+
+    <!-- LISTA DE OPs -->
+    <section class="lista">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+            <h3 style="margin:0">OP'S CADASTRADAS</h3>
+            <button onclick="exportarCSV()" style="background:transparent;border:1px solid rgba(0,242,255,0.35);color:#00f2ff;padding:7px 16px;border-radius:8px;font-family:var(--font,'Orbitron'),sans-serif;font-size:0.55rem;cursor:pointer;letter-spacing:1px">⬇ EXPORTAR CSV</button>
+        </div>
+
+        <div class="barra-filtros">
+            <div class="barra-pesquisa">
+                <input type="text" id="pesquisaOP" placeholder="Pesquisar por OP, cliente ou produto...">
+            </div>
+            <div class="filtro-status-wrap">
+                <button class="btn-filtro ativo" data-status="ABERTA"     onclick="setFiltroStatus('ABERTA')">EM ABERTO</button>
+                <button class="btn-filtro"        data-status="FINALIZADA" onclick="setFiltroStatus('FINALIZADA')">FINALIZADAS</button>
+                <button class="btn-filtro"        data-status="TODAS"      onclick="setFiltroStatus('TODAS')">TODAS</button>
+            </div>
+            <div class="filtro-familia-wrap" id="filtroFamiliaWrap">
+                <button class="chip-fam ativo" data-fam="TODAS" onclick="setFiltroFamilia('TODAS')">TODAS AS FAMÍLIAS</button>
+                <button class="chip-fam" data-fam="rotativa"        onclick="setFiltroFamilia('rotativa')">
+                    <span class="dot-fam" style="background:var(--cor-rotativa)"></span>ROTATIVA
+                </button>
+                <button class="chip-fam" data-fam="semiautomatica"  onclick="setFiltroFamilia('semiautomatica')">
+                    <span class="dot-fam" style="background:var(--cor-semiautomatica)"></span>SEMIAUTOMÁTICA
+                </button>
+                <button class="chip-fam" data-fam="paralela"        onclick="setFiltroFamilia('paralela')">
+                    <span class="dot-fam" style="background:var(--cor-paralela)"></span>PARALELA
+                </button>
+                <button class="chip-fam" data-fam="manual"          onclick="setFiltroFamilia('manual')">
+                    <span class="dot-fam" style="background:var(--cor-manual)"></span>MANUAL
+                </button>
+                <button class="chip-fam" data-fam="sala-limpa"      onclick="setFiltroFamilia('sala-limpa')">
+                    <span class="dot-fam" style="background:var(--cor-sala-limpa)"></span>SALA LIMPA
+                </button>
+                <button class="chip-fam" data-fam="adesivo-liquido" onclick="setFiltroFamilia('adesivo-liquido')">
+                    <span class="dot-fam" style="background:var(--cor-adesivo-liquido)"></span>ADESIVO LÍQ.
+                </button>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>OP</th>
+                    <th>CLIENTE</th>
+                    <th>PRODUTO</th>
+                    <th>FAMÍLIA</th>
+                    <th>IMPRESSÕES</th>
+                    <th>HORAS NECES.</th>
+                    <th>PRAZO</th>
+                    <th>FINALIZAR ATÉ</th>
+                    <th>FOLGA ATÉ O PRAZO</th>
+                    <th>PRIORIDADE</th>
+                    <th>STATUS</th>
+                    <th>AÇÕES</th>
+                </tr>
+            </thead>
+            <tbody id="listaOP"></tbody>
+        </table>
+    </section>
+
+</main>
+
+<!-- Firebase v8 compat -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/configuracoes.js"></script>
+<script src="js/cadastro-op.js"></script>
+
+</body>
+</html>

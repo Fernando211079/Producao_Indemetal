@@ -1,0 +1,57 @@
+.painel-planejamento{
+
+    display:flex;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+    background:rgba(20,25,30,.92);
+
+    border:1px solid rgba(0,242,255,.30);
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:0 0 20px rgba(0,242,255,.15);
+
+}
+
+.filtro{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.filtro label{
+
+    color:#00f2ff;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+}
+
+.filtro input,
+
+.filtro select{
+
+    width:180px;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
+
+    font-family:Orbitron;
+
+    font-weight:bold;
+
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEMETAL | Horas Extras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/horas-extra.css">
+    <script src="js/auto-scale.js"></script>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+    <div class="topbar-brand">
+        <div class="topbar-logo">INDEMETAL</div>
+        <div class="topbar-sub">HORAS EXTRAS</div>
+    </div>
+    <div class="topbar-actions">
+        <button class="btn-sec" onclick="window.location='carga-maquinas.html'">📊 CARGA MÁQ.</button>
+        <button class="btn-sec" onclick="window.location='index.html'">← VOLTAR</button>
+    </div>
+</header>
+
+<!-- FORMULÁRIO -->
+<div class="form-wrap">
+    <div class="form-titulo">REGISTRAR HORAS EXTRAS</div>
+    <div class="form-grid">
+        <div class="campo-grupo">
+            <label>FAMÍLIA</label>
+            <select id="f-familia">
+                <option value="rotativa">Rotativa</option>
+                <option value="semiautomatica">Semiautomática</option>
+                <option value="paralela">Paralela</option>
+                <option value="manual">Manual</option>
+                <option value="sala-limpa">Sala Limpa</option>
+                <option value="adesivo-liquido">Adesivo Líquido</option>
+            </select>
+        </div>
+        <div class="campo-grupo">
+            <label>DATA</label>
+            <input type="date" id="f-data">
+        </div>
+        <div class="campo-grupo">
+            <label>HORAS EXTRAS (h)</label>
+            <input type="number" id="f-horas" min="0.5" max="16" step="0.5" placeholder="Ex: 2.5">
+        </div>
+        <div class="campo-grupo campo-largo">
+            <label>OBSERVAÇÃO</label>
+            <input type="text" id="f-obs" placeholder="Ex: Sábado, urgência cliente X...">
+        </div>
+    </div>
+    <div class="form-preview" id="preview">
+        <span id="preview-imp">Preencha os campos para ver o impacto na capacidade</span>
+    </div>
+    <div class="form-acoes">
+        <button class="btn-salvar" onclick="salvarHoraExtra()">💾 SALVAR HORAS EXTRAS</button>
+    </div>
+    <div class="form-msg" id="form-msg"></div>
+</div>
+
+<!-- LISTA -->
+<div class="lista-wrap">
+    <div class="lista-titulo">HORAS EXTRAS REGISTRADAS</div>
+    <div class="filtro-wrap">
+        <label>FILTRAR POR FAMÍLIA:</label>
+        <select id="filtro-familia" onchange="renderizarLista()">
+            <option value="">Todas</option>
+            <option value="rotativa">Rotativa</option>
+            <option value="semiautomatica">Semiautomática</option>
+            <option value="paralela">Paralela</option>
+            <option value="manual">Manual</option>
+            <option value="sala-limpa">Sala Limpa</option>
+            <option value="adesivo-liquido">Adesivo Líquido</option>
+        </select>
+    </div>
+    <div class="tabela-wrap">
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>FAMÍLIA</th>
+                    <th>DATA</th>
+                    <th>HORAS EXTRAS</th>
+                    <th>IMPRESSÕES GANHAS</th>
+                    <th>OBSERVAÇÃO</th>
+                    <th style="text-align:center">AÇÕES</th>
+                </tr>
+            </thead>
+            <tbody id="lista-body">
+                <tr><td colspan="6" class="td-vazio">CARREGANDO...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Firebase v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/configuracoes.js"></script>
+<script src="js/horas-extra.js"></script>
+
+</body>
+</html>

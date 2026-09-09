@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEMETAL | Cadastro de OP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cadastro-op.css">
+    <link rel="stylesheet" href="css/calendario-carga.css">
+    <script src="js/auto-scale.js"></script>
+</head>
+<body>
+
+<header class="top-bar">
+    <div class="logo">
+        <h1>INDEMETAL</h1>
+        <span>Sistema Integrado de Gestão da Produção</span>
+    </div>
+    <button class="btn-voltar" onclick="window.location='index.html'">VOLTAR</button>
+</header>
+
+<main class="container">
+
+    <h2>CADASTRO DE ORDEM DE PRODUÇÃO</h2>
+
+    <!-- KPIs -->
+    <section class="cards">
+        <div class="card">
+            <h3>OP'S EM ABERTO</h3>
+            <div class="numero" id="kpiOps">0</div>
+        </div>
+        <div class="card">
+            <h3>IMPRESSÕES PENDENTES</h3>
+            <div class="numero" id="kpiImp">0</div>
+        </div>
+        <div class="card">
+            <h3>HORAS COMPROMETIDAS</h3>
+            <div class="numero" id="kpiHoras" style="font-size:1.3rem">0h</div>
+        </div>
+        <div class="card">
+            <h3>URGENTES / ATRASADAS</h3>
+            <div class="numero" id="kpiUrgentes">0</div>
+        </div>
+    </section>
+
+    <!-- LAYOUT PRINCIPAL -->
+    <div class="layoutPrincipal">
+
+        <!-- FORMULÁRIO -->
+        <section class="painelCadastro">
+            <form id="formOP">
+
+                <!-- BLOCO 1: IDENTIFICAÇÃO -->
+                <div class="bloco">
+                    <h3>IDENTIFICAÇÃO</h3>
+                    <div class="linha">
+                        <div class="campo">
+                            <label>Ordem de Produção</label>
+                            <input type="text" id="op" placeholder="Ex: OP-2025-001" required>
+                        </div>
+                        <div class="campo" style="position:relative">
+                            <label>Cliente</label>
+                            <input type="text" id="cliente" placeholder="Nome do cliente" required autocomplete="off">
+                            <ul id="clienteSugestoes" style="
+                                display:none;position:absolute;top:100%;left:0;right:0;z-index:200;
+                                background:#1a1e26;border:1px solid rgba(0,242,255,0.35);border-radius:0 0 8px 8px;
+                                list-style:none;margin:0;padding:0;max-height:180px;overflow-y:auto;"></ul>
+                        </div>
+                        <div class="campo">
+                            <label>Produto / Referência</label>
+                            <input type="text" id="produto" placeholder="DESCRIÇÃO DO PRODUTO" required
+                                   style="text-transform:uppercase">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOCO 2: PRODUÇÃO -->
+                <div class="bloco">
+                    <h3>DADOS DE PRODUÇÃO</h3>
+                    <div class="linha">
+                        <div class="campo">
+                            <label>Família da Máquina</label>
+                            <select id="familia" required>
+                                <option value="">Selecione...</option>
+                                <option value="rotativa">Rotativa</option>
+                                <option value="semiautomatica">Semiautomática</option>
+                                <option value="paralela">Paralela</option>
+                                <option value="manual">Manual</option>
+                                <option value="sala-limpa">Sala Limpa</option>
+                                <option value="adesivo-liquido">Adesivo Líquido</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Quantidade de Peças</label>
+                            <input type="number" id="quantidade" placeholder="0" min="1" required>
+                        </div>
+                        <div class="campo">
+                            <label>Nº de Cores</label>
+                            <input type="number" id="cores" placeholder="0" min="1" required>
+                        </div>
+                    </div>
+                    <!-- Toggle: Tem Adesivo Líquido -->
+                    <div id="wrapAdesivo" class="adesivo-toggle-wrap" style="display:none">
+                        <label class="adesivo-toggle">
+                            <input type="checkbox" id="temAdesivo">
+                            <span class="adesivo-toggle-track">
+                                <span class="adesivo-toggle-thumb"></span>
+                            </span>
+                            <span class="adesivo-toggle-label">REGISTRAR TAMBÉM EM ADESIVO LÍQUIDO</span>
+                        </label>
+                    </div>
+                    <div class="linha">
+                        <div class="campo">
+                            <label>Total de Impressões (calculado)</label>
+                            <input type="text" id="impressoes" readonly>
+                        </div>
+                        <div class="campo">
+                            <label>Horas Necessárias</label>
+                            <input type="text" id="tempoEstimado" readonly placeholder="--">
+                        </div>
+                        <div class="campo">
+                            <label>Dias Necessários</label>
+                            <input type="text" id="diasNecessarios" readonly placeholder="--">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOCO 3: PLANEJAMENTO -->
+                <div class="bloco">
+                    <h3>PLANEJAMENTO</h3>
+                    <div class="linha">
+                        <div class="campo">
+                            <label>Prazo de Entrega</label>
+                            <input type="date" id="prazo">
+                        </div>
+                        <div class="campo">
+                            <label>Prioridade</label>
+                            <select id="prioridade">
+                                <option>Normal</option>
+                                <option>Urgente</option>
+                                <option>Amostra</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Observações</label>
+                            <input type="text" id="observacao" placeholder="(opcional)">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-salvar" id="btnSalvar">SALVAR ORDEM DE PRODUÇÃO</button>
+                <div id="mensagemSistema"></div>
+
+            </form>
+        </section>
+
+        <!-- PAINEL INTELIGENTE -->
+        <aside class="painelInfo">
+            <h3>PLANEJAMENTO INTELIGENTE</h3>
+
+            <div class="infoCards-wrap">
+
+                <!-- 1 — Família -->
+                <div class="infoCard">
+                    <span>Família selecionada</span>
+                    <strong id="infoMaquina">--</strong>
+                </div>
+
+                <!-- 2 — Meta P/H + Cap./Dia (lado a lado) -->
+                <div class="infoCard-duplo">
+                    <div class="infoCard infoCard--half">
+                        <span>Meta P/H</span>
+                        <strong id="infoMeta">--</strong>
+                    </div>
+                    <div class="infoCard infoCard--half">
+                        <span>Cap. / dia</span>
+                        <strong id="infoCapDia">--</strong>
+                    </div>
+                </div>
+
+                <!-- 3 — Tempo + Dias (lado a lado) -->
+                <div class="infoCard-duplo">
+                    <div class="infoCard infoCard--half">
+                        <span>Tempo previsto</span>
+                        <strong id="infoTempo">--</strong>
+                    </div>
+                    <div class="infoCard infoCard--half">
+                        <span>Dias necessários</span>
+                        <strong id="infoDias">--</strong>
+                    </div>
+                </div>
+
+                <!-- 4 — Data de entrega -->
+                <div class="infoCard">
+                    <span>Data de entrega</span>
+                    <strong id="infoEntrega">--</strong>
+                </div>
+
+                <!-- 5 — Demanda no dia da entrega -->
+                <div class="infoCard">
+                    <span>Demanda no dia da entrega</span>
+                    <strong id="infoDemandaDia">--</strong>
+                    <small id="infoDemandaDiaSub" style="display:block;font-size:0.68rem;color:#8a8a8a;margin-top:3px;font-family:var(--font2,'Rajdhani'),sans-serif;font-weight:400"></small>
+                </div>
+
+                <!-- 6 — Finalizar até -->
+                <div class="infoCard">
+                    <span>Finalizar até</span>
+                    <strong id="infoIniciar" style="color:#ffd600">--</strong>
+                </div>
+
+                <!-- 7 — Folga até o prazo -->
+                <div class="infoCard">
+                    <span>Folga até o prazo</span>
+                    <strong id="infoFolga">--</strong>
+                </div>
+
+                <!-- 8 — Status do prazo -->
+                <div class="infoCard infoCard--status">
+                    <span>Status do prazo</span>
+                    <strong id="infoStatus">AGUARDANDO</strong>
+                </div>
+
+            </div>
+
+            <!-- Alerta de conflito de capacidade -->
+            <div id="infoConflito" style="margin-top:10px;font-size:0.72rem;font-family:var(--font2,'Rajdhani'),sans-serif;line-height:1.5;min-height:20px"></div>
+        </aside>
+
+    </div>
+
+</main>
+
+<!-- Firebase v8 compat -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/configuracoes.js"></script>
+<script src="js/cadastro-op.js"></script>
+
+</body>
+</html>

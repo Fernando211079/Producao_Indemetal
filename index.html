@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDEMETAL - MENU</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<script src="js/auto-scale.js"></script>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HEADER PRINCIPAL
+═══════════════════════════════════════════ -->
+<header class="site-header">
+
+    <div class="site-header__brand">
+        <span class="brand-name">MENU</span>
+    </div>
+
+    <!-- NAVEGAÇÃO — botões do sistema -->
+    <nav class="nav-sistema">
+
+        <a class="nav-btn nav-btn--baixa-op" href="baixa-op.html">
+            <span class="nav-btn__icon">📋</span>
+            <span class="nav-btn__label">BAIXA DE OP</span>
+        </a>
+
+        <a class="nav-btn nav-btn--nova-op" href="cadastro-op.html">
+            <span class="nav-btn__icon">＋</span>
+            <span class="nav-btn__label">NOVA OP</span>
+        </a>
+
+        <a class="nav-btn nav-btn--carga" href="carga-maquinas.html">
+            <span class="nav-btn__icon">📊</span>
+            <span class="nav-btn__label">CARGA MÁQ.</span>
+            <span id="badgeAtrasadas" class="nav-badge" style="display:none"></span>
+        </a>
+
+        <a class="nav-btn nav-btn--grafico" href="graficos.html">
+            <span class="nav-btn__icon">📈</span>
+            <span class="nav-btn__label">GRÁF. MÁQ.</span>
+        </a>
+
+        <a class="nav-btn nav-btn--geral" href="dashboard-geral.html">
+            <span class="nav-btn__icon">📉</span>
+            <span class="nav-btn__label">GRÁF. GERAL</span>
+        </a>
+
+        <a class="nav-btn nav-btn--manut" href="manutencao.html">
+            <span class="nav-btn__icon">🔧</span>
+            <span class="nav-btn__label">MANUTENÇÃO</span>
+        </a>
+
+        <a class="nav-btn nav-btn--horas" href="horas-extra.html">
+            <span class="nav-btn__icon">⏱</span>
+            <span class="nav-btn__label">HORAS EXTRAS</span>
+        </a>
+
+        <a class="nav-btn nav-btn--config" href="configuracoes.html">
+            <span class="nav-btn__icon">⚙️</span>
+            <span class="nav-btn__label">CONFIG.</span>
+        </a>
+
+        <button class="nav-btn nav-btn--produtividade" onclick="abrirProdutividade()">
+            <span class="nav-btn__icon">🏭</span>
+            <span class="nav-btn__label">PRODUTIVIDADE</span>
+        </button>
+
+    </nav>
+
+</header>
+
+<!-- ═══════════════════════════════════════════
+     MODAL PRODUTIVIDADE
+═══════════════════════════════════════════ -->
+<div id="modal-produtividade" class="prod-modal" style="display:none;">
+    <div class="prod-modal__overlay" onclick="fecharProdutividade()"></div>
+    <div class="prod-modal__painel">
+
+        <div class="prod-modal__header">
+            <span class="prod-modal__titulo">PRODUTIVIDADE — OPERADORES E MÁQUINAS</span>
+            <button class="prod-modal__fechar" onclick="fecharProdutividade()">✕</button>
+        </div>
+
+        <!-- BARRA DE CADASTRO DE OPERADOR -->
+        <div class="cadastro-bar">
+
+            <span class="cadastro-bar__titulo">CADASTRAR OPERADOR</span>
+
+            <div class="cadastro-bar__campos">
+
+                <div class="cb-campo">
+                    <label for="nome">NOME</label>
+                    <input type="text" id="nome" placeholder="OPERADOR" style="text-transform:uppercase;">
+                </div>
+
+                <div class="cb-campo">
+                    <label for="setor">SETOR</label>
+                    <select id="setor">
+                        <option value="semiautomatica">SEMIAUTOMÁTICA</option>
+                        <option value="rotativa">ROTATIVA</option>
+                        <option value="paralela">PARALELA</option>
+                        <option value="manual">MANUAL</option>
+                        <option value="sala-limpa">SALA LIMPA</option>
+                        <option value="adesivo-liquido">ADESIVO LÍQUIDO</option>
+                    </select>
+                </div>
+
+                <div class="cb-campo">
+                    <label for="turno">TURNO</label>
+                    <select id="turno">
+                        <option value="1">1º TURNO</option>
+                        <option value="2">2º TURNO</option>
+                    </select>
+                </div>
+
+                <button class="cb-btn" onclick="add()">CADASTRAR</button>
+
+            </div>
+
+        </div>
+
+        <!-- GRID DE SETORES -->
+        <div class="grid-principal">
+
+            <div class="col-setor col-setor--semiautomatica">
+                <h3>SEMIAUTOMÁTICA</h3>
+                <div id="box-semiautomatica"></div>
+            </div>
+
+            <div class="col-setor col-setor--rotativa">
+                <h3>ROTATIVA</h3>
+                <div id="box-rotativa"></div>
+            </div>
+
+            <div class="col-setor col-setor--paralela">
+                <h3>PARALELA</h3>
+                <div id="box-paralela"></div>
+            </div>
+
+            <div class="col-setor col-setor--manual">
+                <h3>MANUAL</h3>
+                <div id="box-manual"></div>
+            </div>
+
+            <div class="col-setor col-setor--sala-limpa">
+                <h3>SALA LIMPA</h3>
+                <div id="box-sala-limpa"></div>
+            </div>
+
+            <div class="col-setor col-setor--adesivo-liquido">
+                <h3>ADESIVO LÍQUIDO</h3>
+                <div id="box-adesivo-liquido"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     HERO — Boas-vindas
+═══════════════════════════════════════════ -->
+<section class="hero-bv">
+    <div class="hero-bv__foto-bg"></div>
+    <div class="hero-bv__overlay"></div>
+    <div class="hero-bv__content">
+        <div class="hero-bv__traço"></div>
+        <p class="hero-bv__bv">Bem-vindo ao</p>
+        <h1 class="hero-bv__title">
+            Sistema Integrado de<br>
+            Planejamento e Controle<br>
+            <span class="hero-bv__title--destaque">da Produção</span>
+        </h1>
+        <p class="hero-bv__setor-tag">SETOR DE SERIGRAFIA &nbsp;·&nbsp; INDEMETAL</p>
+        <div class="hero-bv__stats" id="hero-stats">
+            <div class="hero-stat"><span class="hero-stat__val" id="hs-ops">--</span><span class="hero-stat__label">OPs EM ABERTO</span></div>
+            <div class="hero-stat__sep"></div>
+            <div class="hero-stat"><span class="hero-stat__val" id="hs-imp">--</span><span class="hero-stat__label">IMPRESSÕES PENDENTES</span></div>
+            <div class="hero-stat__sep"></div>
+            <div class="hero-stat"><span class="hero-stat__val" id="hs-horas">--</span><span class="hero-stat__label">HORAS COMPROMETIDAS</span></div>
+            <div class="hero-stat__sep"></div>
+            <div class="hero-stat"><span class="hero-stat__val" id="hs-urg">--</span><span class="hero-stat__label">URGENTES</span></div>
+        </div>
+    </div>
+    <div class="hero-bv__nome-lateral">SERIGRAFIA</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TÍTULO SEÇÃO CAPACIDADE
+═══════════════════════════════════════════ -->
+<div class="cap-secao-titulo">
+    <span class="cap-secao-titulo__linha"></span>
+    <span class="cap-secao-titulo__texto">CAPACIDADE POR FAMÍLIA DE MÁQUINA</span>
+    <span class="cap-secao-titulo__linha"></span>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     GRID DE CARDS DE CAPACIDADE
+═══════════════════════════════════════════ -->
+<div class="cap-grid" id="cap-grid">
+    <div class="cap-loading">CARREGANDO DADOS...</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FIREBASE v8 (compatível com configuracoes.js)
+═══════════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+if (!firebase.apps.length) {
+    firebase.initializeApp({
+        apiKey: "AIzaSyDe4wYlROJJ3Xh5kfemFbItjkHF6RKZscc",
+        authDomain: "indemetal-6af63.firebaseapp.com",
+        projectId: "indemetal-6af63",
+        storageBucket: "indemetal-6af63.firebasestorage.app",
+        messagingSenderId: "204244216570",
+        appId: "1:204244216570:web:5ea6e0ad1224c6c32cb743"
+    });
+}
+const db = firebase.firestore();
+</script>
+
+<script src="js/configuracoes.js"></script>
+<script src="script.js"></script>
+
+<script>
+// ─── Cores por família (igual ao carga-maquinas.js) ────────────────
+const CORES_FAM = {
+    rotativa:          "#00e6ff",
+    semiautomatica:    "#ff9800",
+    paralela:          "#00ff88",
+    manual:            "#ff4444",
+    "sala-limpa":      "#c084fc",
+    "adesivo-liquido": "#ffd600"
+};
+
+// ─── Horas produtivas por dia de uma família ────────────────────────
+function homHorasProdutivas(key) {
+    const fam = CONFIG.familias[key];
+    if (!fam) return 0;
+    const hT1sq  = CONFIG.turnos[1].horasSegQui;
+    const hT1sex = CONFIG.turnos[1].horasSex;
+    const hT2sq  = CONFIG.turnos[2].horasSegQui;
+    const hT2sex = CONFIG.turnos[2].horasSex;
+    const maq  = Number(fam.maquinas  || 0);
+    const opT1 = Number(fam.op_t1     || 0);
+    const opT2 = Number(fam.op_t2     || 0);
+    const atT1 = Math.min(maq, opT1);
+    const atT2 = Math.min(maq, opT2);
+    const diaSQ  = atT1 * hT1sq  + atT2 * hT2sq;
+    const diaSex = atT1 * hT1sex + atT2 * hT2sex;
+    return (diaSQ * 4 + diaSex) / 5;
+}
+
+// ─── Formata horas decimais → "42h 30min" ──────────────────────────
+function fmtH(h) {
+    if (!h || h <= 0) return "0h";
+    const hI = Math.floor(h);
+    const m  = Math.round((h - hI) * 60);
+    return `${hI}h${m > 0 ? ` ${String(m).padStart(2,"0")}min` : ""}`;
+}
+
+// ─── Carregamento principal ─────────────────────────────────────────
+(async function iniciarDashboard() {
+
+    await CONFIG_PRONTO;
+
+    const [snapOps] = await Promise.all([
+        db.collection("ops").where("status", "==", "ABERTA").get()
+    ]);
+
+    const ops = [];
+    snapOps.forEach(doc => ops.push({ id: doc.id, ...doc.data() }));
+
+    // Agrupa por família
+    const grupos = {};
+    Object.keys(CONFIG.familias).forEach(k => {
+        grupos[k] = { ops: [], totalImpressoes: 0, totalHoras: 0, totalDias: 0 };
+    });
+
+    ops.forEach(op => {
+        const key = op.familia;
+        if (!grupos[key]) return;
+        const imp  = Number(op.impressoes || 0);
+        const fam  = CONFIG.familias[key];
+        const meta = fam ? fam.metaHora * CONFIG.eficiencia : 0;
+        const h    = meta > 0 ? imp / meta : 0;
+        grupos[key].ops.push(op);
+        grupos[key].totalImpressoes += imp;
+        grupos[key].totalHoras      += h;
+    });
+
+    // Dias a partir do total de horas
+    Object.keys(grupos).forEach(key => {
+        const hpd = homHorasProdutivas(key);
+        grupos[key].totalDias = hpd > 0
+            ? Math.ceil(grupos[key].totalHoras / hpd)
+            : 0;
+    });
+
+    // ── Stats do hero ──────────────────────────────────────────────
+    const totalOps   = ops.length;
+    const totalImp   = ops.reduce((s, o) => s + Number(o.impressoes || 0), 0);
+    const totalHoras = Object.values(grupos).reduce((s, g) => s + g.totalHoras, 0);
+    const urgentes   = ops.filter(o => o.prioridade === "Urgente" || o.prioridade === "Amostra").length;
+
+    document.getElementById("hs-ops").textContent   = totalOps;
+    document.getElementById("hs-imp").textContent   = totalImp.toLocaleString("pt-BR");
+    document.getElementById("hs-horas").textContent = fmtH(totalHoras);
+    document.getElementById("hs-urg").textContent   = urgentes;
+    if (urgentes > 0) document.getElementById("hs-urg").style.color = "#ff4444";
+
+    // ── Badge atrasadas ────────────────────────────────────────────
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    let atrasadas = 0;
+    ops.forEach(op => {
+        if (op.prazo && new Date(op.prazo + "T00:00:00") < hoje) atrasadas++;
+    });
+    if (atrasadas > 0) {
+        const b = document.getElementById("badgeAtrasadas");
+        if (b) { b.textContent = atrasadas > 9 ? "9+" : atrasadas; b.style.display = "flex"; }
+    }
+
+    // ── Renderiza cards de capacidade ─────────────────────────────
+    const grid = document.getElementById("cap-grid");
+    grid.innerHTML = "";
+
+    Object.entries(CONFIG.familias).forEach(([key, fam]) => {
+
+        const grupo = grupos[key];
+        const cor   = CORES_FAM[key] || "#fff";
+
+        const horasCarga = grupo.totalHoras;
+        const diasCarga  = grupo.totalDias;
+        const impTotal   = grupo.totalImpressoes;
+        const nOps       = grupo.ops.length;
+
+        // Barra: referência = 20 dias
+        const hpd       = homHorasProdutivas(key);
+        const horasBase = hpd * 20;
+        const pct       = horasBase > 0
+            ? Math.min(Math.round((horasCarga / horasBase) * 100), 100)
+            : 0;
+
+        const nivel    = pct >= 100 ? "danger" : pct >= 70 ? "warning" : "ok";
+        const corBarra = nivel === "danger" ? "#ff4444" : nivel === "warning" ? "#ffd600" : "#00ff88";
+        const labelNivel = nivel === "danger" ? "⚠ SOBRECARREGADA" : nivel === "warning" ? "⚡ ATENÇÃO" : "✔ NORMAL";
+
+        // Capacidade diária em impressões/dia
+        const capDia = Math.round(configCapDia(key, false));
+
+        // Impressões por máquina (total / qtd máquinas)
+        const impPorMaq = fam.maquinas > 0
+            ? Math.round(impTotal / fam.maquinas).toLocaleString("pt-BR")
+            : "--";
+
+        const card = document.createElement("div");
+        card.className = "cap-card";
+        card.style.setProperty("--cap-cor", cor);
+        card.innerHTML = `
+            <div class="cap-card__topo">
+                <div class="cap-card__dot" style="background:${cor};box-shadow:0 0 10px ${cor}80"></div>
+                <div class="cap-card__nome" style="color:${cor}">${fam.nome.toUpperCase()}</div>
+                <div class="cap-card__nivel" style="color:${corBarra}">${labelNivel}</div>
+            </div>
+
+            <div class="cap-card__horas" style="color:${corBarra}">${fmtH(horasCarga)}</div>
+            <div class="cap-card__dias-label">${diasCarga} dia${diasCarga !== 1 ? "s" : ""} comprometido${diasCarga !== 1 ? "s" : ""}</div>
+
+            <div class="cap-barra-bg">
+                <div class="cap-barra-fill" style="width:${pct}%;background:${corBarra}"></div>
+            </div>
+
+            <div class="cap-card__kpis">
+                <div class="cap-kpi">
+                    <div class="cap-kpi__val">${fam.maquinas}</div>
+                    <div class="cap-kpi__label">MÁQ.</div>
+                </div>
+                <div class="cap-kpi">
+                    <div class="cap-kpi__val" style="color:#00ff88">${fam.op_t1 ?? "--"}</div>
+                    <div class="cap-kpi__label">OP. T1</div>
+                </div>
+                <div class="cap-kpi">
+                    <div class="cap-kpi__val" style="color:#c084fc">${fam.op_t2 ?? "--"}</div>
+                    <div class="cap-kpi__label">OP. T2</div>
+                </div>
+                <div class="cap-kpi">
+                    <div class="cap-kpi__val" style="color:${cor}">${nOps}</div>
+                    <div class="cap-kpi__label">OPs</div>
+                </div>
+            </div>
+
+            <div class="cap-card__impressoes">
+                <div class="cap-imp-row">
+                    <span class="cap-imp-label">IMPRESSÕES NA FILA</span>
+                    <span class="cap-imp-val" style="color:${cor}">${impTotal.toLocaleString("pt-BR")}</span>
+                </div>
+                <div class="cap-imp-row">
+                    <span class="cap-imp-label">DIAS COMPROMETIDOS</span>
+                    <span class="cap-imp-val" style="color:${corBarra}">${diasCarga} dia${diasCarga !== 1 ? "s" : ""}</span>
+                </div>
+                <div class="cap-imp-row">
+                    <span class="cap-imp-label">CAPACIDADE / DIA</span>
+                    <span class="cap-imp-val" style="color:#aaa">${capDia.toLocaleString("pt-BR")}</span>
+                </div>
+                <div class="cap-imp-row">
+                    <span class="cap-imp-label">META P/HORA</span>
+                    <span class="cap-imp-val" style="color:#aaa">${fam.metaHora.toLocaleString("pt-BR")}</span>
+                </div>
+            </div>
+
+            <div class="cap-card__rodape">
+                <span style="color:#fff">${pct}% da capacidade mensal</span>
+                <a href="carga-maquinas.html" class="cap-card__link">VER DETALHES →</a>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+
+})();
+
+// Modal Produtividade
+function abrirProdutividade() {
+    const modal = document.getElementById("modal-produtividade");
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function fecharProdutividade() {
+    const modal = document.getElementById("modal-produtividade");
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
+// Fechar com ESC
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") fecharProdutividade();
+});
+
+// Reabrir modal ao voltar da tela de produção
+if (localStorage.getItem('reabrir_produtividade') === '1') {
+    localStorage.removeItem('reabrir_produtividade');
+    window.addEventListener("load", function() {
+        abrirProdutividade();
+    });
+}
+</script>
+
+</body>
+</html>

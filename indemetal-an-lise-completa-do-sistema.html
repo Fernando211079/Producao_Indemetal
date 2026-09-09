@@ -1,0 +1,339 @@
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e0e0e0;font-family:-apple-system,"Segoe UI",system-ui,sans-serif;padding:28px;font-size:14px;line-height:1.65}
+h1{color:#ff0000;font-family:'Segoe UI',sans-serif;font-size:1.05rem;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px}
+.sub{color:rgba(255,255,255,0.3);font-size:0.62rem;letter-spacing:2px;margin-bottom:32px;text-transform:uppercase}
+.sec{margin-bottom:34px}
+.sec-title{font-size:0.63rem;letter-spacing:3px;border-left:3px solid;padding-left:10px;margin-bottom:16px;text-transform:uppercase;font-weight:700}
+.sec-title.ok     {color:#00ff95;border-color:#00ff95}
+.sec-title.warn   {color:#ff9d00;border-color:#ff9d00}
+.sec-title.erro   {color:#ff4444;border-color:#ff4444}
+.sec-title.info   {color:#00f2ff;border-color:#00f2ff}
+.sec-title.idea   {color:#a78bfa;border-color:#a78bfa}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.card{border-radius:10px;padding:16px 18px;border:1px solid}
+.card.ok     {background:rgba(0,255,149,0.04); border-color:rgba(0,255,149,0.2)}
+.card.warn   {background:rgba(255,157,0,0.05); border-color:rgba(255,157,0,0.25)}
+.card.erro   {background:rgba(255,68,68,0.05); border-color:rgba(255,68,68,0.2)}
+.card.info   {background:rgba(0,242,255,0.04); border-color:rgba(0,242,255,0.2)}
+.card.idea   {background:rgba(167,139,250,0.05);border-color:rgba(167,139,250,0.2)}
+.card-title{font-size:0.68rem;font-weight:700;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-title.ok     {color:#00ff95}
+.card-title.warn   {color:#ff9d00}
+.card-title.erro   {color:#ff4444}
+.card-title.info   {color:#00f2ff}
+.card-title.idea   {color:#a78bfa}
+.chip{font-size:0.45rem;padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:0.5px;flex-shrink:0;font-family:'Segoe UI',sans-serif}
+.chip.ok     {background:rgba(0,255,149,0.15);color:#00ff95;border:1px solid rgba(0,255,149,0.35)}
+.chip.warn   {background:rgba(255,157,0,0.15); color:#ff9d00;border:1px solid rgba(255,157,0,0.35)}
+.chip.erro   {background:rgba(255,68,68,0.15); color:#ff6666;border:1px solid rgba(255,68,68,0.35)}
+.chip.info   {background:rgba(0,242,255,0.12); color:#00f2ff;border:1px solid rgba(0,242,255,0.3)}
+.chip.idea   {background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.3)}
+.card-desc{font-size:0.6rem;color:rgba(255,255,255,0.55);line-height:1.8}
+.card-desc strong{color:rgba(255,255,255,0.85)}
+.card-desc code{background:rgba(0,0,0,0.4);padding:1px 5px;border-radius:4px;color:#00f2ff;font-size:0.58rem}
+.file-table{width:100%;border-collapse:collapse;font-size:0.6rem;margin-top:4px}
+.file-table th{color:rgba(255,255,255,0.3);letter-spacing:1.5px;padding:6px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.08);font-weight:600}
+.file-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);vertical-align:top}
+.file-table tr:last-child td{border-bottom:none}
+.file-table td:first-child{color:#00f2ff;font-family:monospace;font-size:0.62rem;white-space:nowrap}
+.tag{display:inline-block;padding:1px 7px;border-radius:12px;font-size:0.44rem;font-weight:700;letter-spacing:0.5px;font-family:'Segoe UI',sans-serif}
+.tag.ok  {background:rgba(0,255,149,0.15);color:#00ff95}
+.tag.warn{background:rgba(255,157,0,0.15); color:#ff9d00}
+.tag.erro{background:rgba(255,68,68,0.15); color:#ff6666}
+.tag.info{background:rgba(0,242,255,0.12); color:#00f2ff}
+.tag.idea{background:rgba(167,139,250,0.12);color:#a78bfa}
+.divider{border:none;border-top:1px solid rgba(255,255,255,0.07);margin:32px 0}
+.resumo{background:rgba(20,25,30,0.95);border:1px solid rgba(0,242,255,0.18);border-radius:12px;padding:20px 22px}
+.resumo-title{font-size:0.56rem;color:#00f2ff;letter-spacing:2px;margin-bottom:14px;text-transform:uppercase}
+.resumo-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.6rem}
+.resumo-row:last-child{border-bottom:none}
+.resumo-row span:first-child{color:rgba(255,255,255,0.6);max-width:78%}
+.nota-box{background:rgba(0,242,255,0.04);border:1px solid rgba(0,242,255,0.15);border-radius:8px;padding:12px 16px;font-size:0.58rem;color:rgba(255,255,255,0.5);line-height:1.8;margin-top:12px}
+.nota-box strong{color:#00f2ff}
+footer{text-align:center;margin-top:36px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.15);font-size:11px;font-family:sans-serif}
+</style>
+</head>
+<body>
+
+<h1>INDEMETAL — ANÁLISE COMPLETA DO SISTEMA</h1>
+<div class="sub">Estado atual · problemas encontrados · melhorias possíveis</div>
+
+
+
+<div class="sec">
+  <div class="sec-title info">📁 INVENTÁRIO DE ARQUIVOS</div>
+  <div class="card info" style="padding:0 18px">
+    <table class="file-table">
+      <thead>
+        <tr>
+          <th>ARQUIVO</th>
+          <th>DESCRIÇÃO</th>
+          <th>ESTADO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>index.html</td><td>Menu principal — cadastro de operadores, navegação, badge de OPs atrasadas</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>script.js</td><td>JS do index.html — operadores, produção, histórico individual</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>style.css</td><td>Estilos globais do index.html</td><td><span class="tag ok">NÃO TOCADO</span></td></tr>
+        <tr><td>producao.html</td><td>Lançamento diário de produção do operador</td><td><span class="tag ok">NÃO TOCADO</span></td></tr>
+        <tr><td>graficos.html</td><td>Dashboard por máquina — fonte visual do tema neon</td><td><span class="tag ok">NÃO TOCADO</span></td></tr>
+        <tr><td>dashboard-geral.html</td><td>Dashboard geral de produção</td><td><span class="tag ok">NÃO TOCADO</span></td></tr>
+        <tr><td>historico.html</td><td>Histórico de produção</td><td><span class="tag ok">NÃO TOCADO</span></td></tr>
+        <tr><td>cadastro-op.html</td><td>Cadastro de OPs — KPIs, formulário, tabela 12 colunas, CSV, filtros</td><td><span class="tag ok">ATUALIZADO</span></td></tr>
+        <tr><td>carga-maquinas.html</td><td>Carga das máquinas — mini-cards, detalhe, calendário</td><td><span class="tag ok">CRIADO</span></td></tr>
+        <tr><td>manutencao.html</td><td>Registro de paradas de manutenção</td><td><span class="tag ok">CRIADO</span></td></tr>
+        <tr><td>horas-extra.html</td><td>Registro de horas extras por família</td><td><span class="tag ok">CRIADO</span></td></tr>
+        <tr><td>configuracoes.html</td><td>Configurações com PIN 1234 — famílias, jornadas, eficiência</td><td><span class="tag ok">CRIADO</span></td></tr>
+        <tr><td>config.js</td><td>Shim de compatibilidade retroativa</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>planejamento.html</td><td>Tela antiga/esqueleto — layout diferente do tema atual, JS vazio</td><td><span class="tag warn">OBSOLETO</span></td></tr>
+        <tr><td>planejamento.css</td><td>CSS incompleto para planejamento.html</td><td><span class="tag warn">OBSOLETO</span></td></tr>
+        <tr><td>planejamento.js</td><td>Arquivo criado mas vazio (1 linha em branco)</td><td><span class="tag warn">VAZIO</span></td></tr>
+        <tr><td>js/planejamento.js</td><td>Mesmo nome em /js/ — também vazio, duplicado</td><td><span class="tag erro">DUPLICADO</span></td></tr>
+        <tr><td>sugest-es-o-que-tirar-e-o-que-acrescentar.html</td><td>Documento de análise gerado — não é funcional, só referência</td><td><span class="tag info">DOC. INTERNO</span></td></tr>
+        <tr><td>resumo-dos-kpis-carga-de-m-quinas.html</td><td>Documento de referência dos KPIs — não é funcional</td><td><span class="tag info">DOC. INTERNO</span></td></tr>
+        <tr><td>js/firebase.js</td><td>Inicialização Firebase v8 — expõe <code>db</code></td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/configuracoes.js</td><td>CONFIG global + CONFIG_PRONTO + configCapDia() + configCapDiaMedia()</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/configuracoes-painel.js</td><td>Lógica do painel de configurações — CRUD Firestore</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/cadastro-op.js</td><td>CRUD de OPs — cache local, autocomplete, conflito, CSV</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/carga-maquinas.js</td><td>Cálculos de carga, mini-cards, detalhe, integração calendário</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/calendario-carga.js</td><td>Classe CalendarioCarga — distribuição de carga por dia</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/manutencao.js</td><td>CRUD de paradas de manutenção</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>js/horas-extra.js</td><td>CRUD de horas extras</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>css/cadastro-op.css</td><td>Tema neon do cadastro de OPs</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>css/carga-maquinas.css</td><td>Tema neon da carga das máquinas</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>css/calendario-carga.css</td><td>Estilos do calendário — chips, cores, badge-fora</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>css/manutencao.css</td><td>Tema neon da manutenção</td><td><span class="tag ok">OK</span></td></tr>
+        <tr><td>css/horas-extra.css</td><td>Tema neon das horas extras</td><td><span class="tag ok">OK</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="sec">
+  <div class="sec-title ok">✅ O QUE ESTÁ FUNCIONANDO BEM</div>
+  <div class="grid">
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> Arquitetura Firebase v8 consistente</div>
+      <div class="card-desc">Todas as páginas novas (<code>carga-maquinas.html</code>, <code>manutencao.html</code>, <code>horas-extra.html</code>, <code>configuracoes.html</code>) carregam os scripts na ordem correta: <code>firebase-app.js</code> → <code>firebase-firestore.js</code> → <code>firebase.js</code> → módulos específicos. Nenhuma página inicia antes do Firebase estar pronto.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> CONFIG_PRONTO garantido em todos os módulos</div>
+      <div class="card-desc">Todos os arquivos que precisam de CONFIG fazem <code>await CONFIG_PRONTO</code> antes de usar qualquer valor. A coleção <code>producao</code> nunca é tocada. Sem colisão de nomes com o código legado.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> Cache local _opsCache em cadastro-op.js</div>
+      <div class="card-desc">A busca de OPs filtra localmente sobre <code>_opsCache</code> — zero queries extras ao Firestore por tecla digitada. O autocomplete de cliente também usa o cache. Implementação eficiente e correta.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> diasNecessarios não é mais salvo</div>
+      <div class="card-desc">OPs novas/editadas não salvam o campo <code>diasNecessarios</code> no Firestore. Todos os cálculos de dias usam <code>configCapDiaMedia()</code> em tempo real, garantindo que mudanças de config reflitam automaticamente sem dados obsoletos.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> CalendarioCarga recriada após Atualizar</div>
+      <div class="card-desc">Quando <code>carregarTudo()</code> é chamado e <code>familiaSelecionada</code> não é nulo, o código chama <code>selecionarFamilia(familiaSelecionada)</code> que reconstrói o container <code>detalheWrap</code> e instancia um novo <code>CalendarioCarga</code> — a instância antiga não persiste.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> Fórmula de capacidade correta</div>
+      <div class="card-desc">A fórmula <code>min(maq, op_t1) × hT1 + min(maq, op_t2) × hT2) × meta × ef</code> está implementada de forma idêntica em <code>configCapDia()</code> (configuracoes.js), <code>calcCapDia()</code> (configuracoes-painel.js) e nos cálculos do carga-maquinas.js. Consistência perfeita.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> Badges de manutenção e extras independentes</div>
+      <div class="card-desc">O objeto <code>ajustesHoras</code> retorna <code>{ extras, manut }</code> separadamente. Nos mini-cards e no detalhe os badges aparecem de forma independente — se só houver manutenção, apenas o badge de manutenção é exibido, e vice-versa.</div>
+    </div>
+
+    <div class="card ok">
+      <div class="card-title ok"><span class="chip ok">SIM</span> PIN screen em configuracoes.html</div>
+      <div class="card-desc">A tela de PIN (código <strong>1234</strong>) bloqueia o acesso ao painel. Suporta teclado físico e botões on-screen. Exibe dots visuais e mensagem de erro com animação de shake. Depois de desbloqueado, o painel de config é exibido normalmente.</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="sec">
+  <div class="sec-title warn">⚠️ PROBLEMAS ENCONTRADOS</div>
+  <div class="grid">
+
+    <div class="card erro">
+      <div class="card-title erro"><span class="chip erro">BUG</span> planejamento.html usa tema antigo e JS vazio</div>
+      <div class="card-desc"><code>planejamento.html</code> tem um layout completamente diferente do tema neon atual (fundo cinza, sem Orbitron, sem neon, cards estilo anos 90). O arquivo <code>planejamento.js</code> na raiz está <strong>completamente vazio</strong>. A página não funciona. Não está linkada no menu — ninguém a acessa. <strong>Ação sugerida: arquivar ou deletar.</strong></div>
+    </div>
+
+    <div class="card erro">
+      <div class="card-title erro"><span class="chip erro">BUG</span> js/planejamento.js duplicado e vazio</div>
+      <div class="card-desc">Existe um <code>js/planejamento.js</code> (dentro da pasta js) e um <code>planejamento.js</code> na raiz — ambos vazios. O <code>planejamento.html</code> não referencia nenhum dos dois. Arquivo morto criando confusão.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> index.html usa Firebase v10 (compat) diferente das outras páginas</div>
+      <div class="card-desc">O <code>index.html</code> carrega <code>firebase-app-compat.js</code> versão <strong>10.12.2</strong>. Todas as outras páginas (cadastro-op, carga-maquinas, configuracoes, etc.) carregam versão <strong>8.10.1</strong>. Embora o modo compat funcione de forma similar, é inconsistente. Se algo der errado, a diferença de versão é a primeira suspeita.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> index.html não carrega js/firebase.js</div>
+      <div class="card-desc">O <code>index.html</code> tem a configuração do Firebase <strong>inline</strong> — repete <code>apiKey</code>, <code>projectId</code> etc. diretamente no HTML. Todas as outras páginas usam <code>js/firebase.js</code> (fonte única). Se a config mudar (ex: novo projeto), precisará ser atualizada em dois lugares.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> Botão CARGA MÁQ. sem link no index.html</div>
+      <div class="card-desc">No <code>index.html</code> o botão <em>"📊 CARGA MÁQ."</em> tem <code>onclick="window.location='carga-maquinas.html'"</code> — OK. Mas <strong>falta botão para "CADASTRO DE OP"</strong> no menu principal. Para acessar o cadastro de OP, o usuário precisa entrar primeiro em carga-maquinas e clicar "NOVA OP" — não intuitivo.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> HORAS_DIA = 8 ainda existe em cadastro-op.js</div>
+      <div class="card-desc">A constante <code>const HORAS_DIA = 8</code> (linha 18 do cadastro-op.js) não é mais usada em nenhum lugar do arquivo — os cálculos de horas/dias usam <code>configCapDiaMedia()</code> e a meta real da família. É código morto que pode confundir.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> Campo "Dias Necessários" no formulário ainda existe</div>
+      <div class="card-desc">O <code>cadastro-op.html</code> tem o campo <code>id="diasNecessarios"</code> read-only no formulário (input visual). Esse valor é calculado localmente e exibido no painel inteligente também como <strong>"Dias necessários"</strong> — são dois elementos mostrando a mesma informação. O campo no formulário está lá só para exibição extra, não é salvo.</div>
+    </div>
+
+    <div class="card warn">
+      <div class="card-title warn"><span class="chip warn">ATENÇÃO</span> Calendário usa distribuição de carga simplificada</div>
+      <div class="card-desc">Em <code>calendario-carga.js</code>, a distribuição de carga nos dias não considera a ordem real das OPs na fila (como definida no detalhe da família). Todas as OPs da mesma família são somadas e espalhadas igualmente desde "início calculado = prazo − N dias". Na prática isso não representa a sequência real de execução.</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="sec">
+  <div class="sec-title idea">💡 PRÓXIMAS MELHORIAS SUGERIDAS</div>
+  <div class="grid">
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">FÁCIL</span> Adicionar botão "CADASTRAR OP" no menu principal</div>
+      <div class="card-desc">Um botão direto para <code>cadastro-op.html</code> no <code>index.html</code> — sem precisar passar pela tela de carga de máquinas. Atualmente a única forma de chegar lá é pelo botão "NOVA OP" dentro da tela de carga. <strong>Impacto: 2 linhas de HTML.</strong></div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">FÁCIL</span> Remover / arquivar planejamento.html e planejamento.js</div>
+      <div class="card-desc">Os arquivos <code>planejamento.html</code>, <code>planejamento.css</code> e ambos os <code>planejamento.js</code> são telas mortas com JS vazio. Podem ser deletados ou movidos para uma pasta <code>_obsoleto/</code> para manter o workspace limpo.</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">FÁCIL</span> Unificar versão Firebase em index.html</div>
+      <div class="card-desc">Substituir o bloco inline do Firebase no <code>index.html</code> (v10 compat) por <code>&lt;script src="js/firebase.js"&gt;</code> como todas as outras páginas fazem (v8). Isso elimina a duplicação de config e garante que todos os scripts usem a mesma versão.</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">FÁCIL</span> Remover constante morta HORAS_DIA</div>
+      <div class="card-desc">Deletar <code>const HORAS_DIA = 8</code> de <code>js/cadastro-op.js</code>. Não é referenciada em lugar algum desde a última reescrita. Código morto que confunde quem lê o arquivo.</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">MÉDIO</span> Dashboard executivo (visão de gestão)</div>
+      <div class="card-desc">Uma tela com <strong>6 gauges de ocupação</strong> por família, <strong>calendário geral do mês</strong> marcando os dias críticos, <strong>top 5 OPs mais urgentes</strong> e <strong>tendência da semana</strong> (produção realizada vs. planejada). Seria a tela que o gerente abre de manhã. Dados já existem — falta só a visualização.</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">MÉDIO</span> Relatório de pontualidade por família</div>
+      <div class="card-desc">O campo <code>diasAtraso</code> já é salvo ao finalizar cada OP (negativo = adiantado, positivo = atrasado). Falta uma tela de análise mostrando: <strong>% de OPs no prazo</strong>, <strong>atraso médio por família</strong>, <strong>histograma de atrasos</strong>. Dados já estão no Firestore (<code>ops</code> com status FINALIZADA).</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">MÉDIO</span> Calendário com sequência real das OPs</div>
+      <div class="card-desc">O <code>CalendarioCarga</code> hoje distribui carga estimando "início = prazo − N dias". Uma versão melhorada usaria a fila ordenada do detalhe da família (Emergência → Urgente → Normal → prazo) e alocaria cada OP sequencialmente a partir de hoje, mostrando exatamente qual OP ocupa qual dia.</div>
+    </div>
+
+    <div class="card idea">
+      <div class="card-title idea"><span class="chip idea">MAIOR</span> Notificações / alertas automáticos</div>
+      <div class="card-desc">Uma camada de alertas em tempo real: famílias que ultrapassaram 100% de carga aparecem em destaque no menu; OPs com prazo nos próximos 3 dias úteis ganham destaque vermelho piscante; e uma barra de notificações no topo das páginas. Requer um componente de notificação reutilizável.</div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<hr class="divider" />
+<div class="sec">
+  <div class="sec-title info">🗄️ COLEÇÕES FIRESTORE — MAPA ATUAL</div>
+  <div class="card info" style="padding:0 18px">
+    <table class="file-table">
+      <thead>
+        <tr><th>COLEÇÃO</th><th>CAMPOS PRINCIPAIS</th><th>QUEM USA</th><th>STATUS</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>producao</td>
+          <td>nome, setor, turno, data, jornada, qtd_imp, qtd_set, t_set, t_tin, t_tel, t_aus, t_out, obs</td>
+          <td>script.js, producao.html, graficos.html, historico.html, dashboard-geral.html</td>
+          <td><span class="tag warn">NÃO TOCAR</span></td>
+        </tr>
+        <tr>
+          <td>operadores</td>
+          <td>nome, setor, turno</td>
+          <td>script.js (index.html)</td>
+          <td><span class="tag warn">NÃO TOCAR</span></td>
+        </tr>
+        <tr>
+          <td>ops</td>
+          <td>op, cliente, produto, familia, quantidade, cores, impressoes, prazo, prioridade, observacao, status, dataCadastro, dataFinalizacao, diasAtraso</td>
+          <td>cadastro-op.js, carga-maquinas.js, calendario-carga.js, index.html (badge)</td>
+          <td><span class="tag ok">ATIVO</span></td>
+        </tr>
+        <tr>
+          <td>configuracoes/geral</td>
+          <td>eficiencia, horasSegQui_t1, horasSex_t1, horasSegQui_t2, horasSex_t2, familias{}</td>
+          <td>configuracoes.js (leitura), configuracoes-painel.js (escrita)</td>
+          <td><span class="tag ok">ATIVO</span></td>
+        </tr>
+        <tr>
+          <td>manutencao</td>
+          <td>familia, dtInicio, dtFim, motivo, horasDescontadas, criadoEm</td>
+          <td>manutencao.js, carga-maquinas.js (leitura)</td>
+          <td><span class="tag ok">ATIVO</span></td>
+        </tr>
+        <tr>
+          <td>horas_extra</td>
+          <td>familia, data, horas, impressoesGanhas, obs, criadoEm</td>
+          <td>horas-extra.js, carga-maquinas.js (leitura)</td>
+          <td><span class="tag ok">ATIVO</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<hr class="divider" />
+<div class="resumo">
+  <div class="resumo-title">RESUMO EXECUTIVO — PRIORIDADE DE AÇÃO</div>
+  <div class="resumo-row"><span>🔴 BUG — Deletar/arquivar planejamento.html + planejamento.css + ambos planejamento.js (todos vazios/obsoletos)</span><span class="tag erro">URGENTE</span></div>
+  <div class="resumo-row"><span>🟡 Unificar versão Firebase no index.html (v10 → v8, usar js/firebase.js)</span><span class="tag warn">IMPORTANTE</span></div>
+  <div class="resumo-row"><span>🟡 Adicionar botão direto "CADASTRAR OP" no menu principal (index.html)</span><span class="tag warn">IMPORTANTE</span></div>
+  <div class="resumo-row"><span>🟡 Remover constante morta HORAS_DIA de cadastro-op.js</span><span class="tag warn">LIMPEZA</span></div>
+  <div class="resumo-row"><span>💡 Dashboard executivo com gauges de ocupação por família</span><span class="tag idea">MÉDIO ESFORÇO</span></div>
+  <div class="resumo-row"><span>💡 Relatório de pontualidade (dados de diasAtraso já existem)</span><span class="tag idea">MÉDIO ESFORÇO</span></div>
+  <div class="resumo-row"><span>💡 Calendário com sequência real das OPs por família</span><span class="tag idea">MÉDIO ESFORÇO</span></div>
+  <div class="resumo-row"><span>💡 Notificações automáticas de carga excedida e prazos críticos</span><span class="tag idea">MAIOR ESFORÇO</span></div>
+</div>
+
+<div class="nota-box" style="margin-top:20px">
+  <strong>Sistema atual:</strong> 9 páginas funcionais · 8 arquivos JS · 5 arquivos CSS · 5 coleções Firestore<br />
+  <strong>Arquivos mortos a limpar:</strong> planejamento.html · planejamento.css · planejamento.js (raiz) · js/planejamento.js<br />
+  <strong>Regras invioláveis:</strong> coleção <code>producao</code> e <code>operadores</code> não devem ser modificadas · Firebase v8 compat em todas as páginas novas · CONFIG via CONFIG_PRONTO antes de qualquer cálculo
+</div>
+
+<footer>Made with IBM Bob</footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>PRODUÇÃO - INDEMETAL</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <script src="js/auto-scale.js"></script>
+</head>
+<body style="overflow: hidden; display: flex; flex-direction: column; height: 100vh;">
+    
+    <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff0000; padding-bottom: 10px;">
+        <div style="flex: 1;">
+            <div class="brand-name" style="font-size: 2.2rem;">INDEMETAL</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                <span style="font-weight: bold; color: #fff; font-size: 0.8rem;">FILTRO MÊS:</span>
+                <input type="month" id="filtro-mes" onchange="atualizarTabelaIndividual()" style="color: #00ff00; font-weight: bold; border: 1px solid #00ff00; background: #000;">
+            </div>
+        </div>
+
+        <div style="flex: 1; text-align: center; border: 1px dashed rgba(255,255,255,0.2); padding: 5px; border-radius: 8px;">
+            <div style="font-size: 0.7rem; color: #aaa; letter-spacing: 2px;">META DA MÁQUINA</div>
+            <div id="meta-display" style="font-family: 'Orbitron'; font-size: 2rem; color: #00f2ff; text-shadow: 0 0 10px rgba(0,242,255,0.5);">-- P/H</div>
+        </div>
+
+        <div style="flex: 1; text-align: right; color: #fff;">
+            <div id="op-nome-display" style="font-family: 'Orbitron'; font-size: 2.2rem; color: #ff0000; line-height: 1;">-</div>
+            <div id="op-setor-display" style="font-size: 0.8rem; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; color: #00ff00;">-</div>
+        </div>
+    </div>
+
+    <div class="form-producao" style="display: flex; gap: 8px; padding: 10px; align-items: flex-end; background: rgba(255,255,255,0.05); border-radius: 8px; margin-top: 5px;">
+        <div class="campo">DATA<input type="date" id="p-data" onchange="verificarDiaSemana()"></div>
+        <div class="campo">JOR.<input type="text" id="p-hrs" value="07:04" style="width:50px;"></div>
+        <div class="campo">IMPRESSÃO<input type="number" id="p-qtd-imp" style="width:60px;"></div>
+        <div class="campo">SETUP<input type="number" id="p-qtd-set" style="width:50px;"></div>
+        <div class="campo">TEMPO SETUP<input type="text" id="p-t-set" value="00:00" style="width:60px;"></div>
+        <div class="campo">TEMPO TINTA<input type="text" id="p-t-tin" value="00:00" style="width:50px;"></div>
+        <div class="campo">TEMPO TELA<input type="text" id="p-t-tel" value="00:00" style="width:50px;"></div>
+        <div class="campo">TEMPO AUSÊNCIA<input type="text" id="p-t-aus" value="00:00" style="width:70px;"></div>
+        <div class="campo">TEMPO OUTROS<input type="text" id="p-t-out" value="00:00" style="width:60px;"></div>
+        <div class="campo" style="flex-grow: 1;">OBSERVAÇÃO<input type="text" id="p-obs" style="width:100%;"></div>
+        
+        <button onclick="salvarProducao()" style="background:#ff0000; color:white; border:none; padding:10px 20px; font-weight:bold; cursor:pointer;">GRAVAR</button>
+        <button onclick="exportarExcel()" style="background:#28a745; color:#fff; border:none; padding:10px 15px; font-weight:bold; cursor:pointer;">📥 EXCEL</button>
+        <button onclick="window.location.href='index.html'" style="background:#333; color:white; border:none; padding:10px 15px; cursor:pointer;">VOLTAR</button>
+    </div>
+
+    <div class="report-area" style="flex-grow: 1; overflow-y: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>DATA</th><th>JORNADA.</th><th>QUANT.IMPRESSÃO</th><th>QUANT.SETUP.</th>
+                    <th>TEMPO SETUP</th><th>TEMPO TINTA</th><th>TEMPO TELA</th><th>TEMPO AUSÊNTE</th><th>TEMPO OUTROS</th>
+                    <th>OBSERVAÇÃO</th><th>P/H</th><th></th>
+                </tr>
+            </thead>
+            <tbody id="corpo-individual"></tbody>
+        </table>
+    </div>
+<!-- 🔥 FIREBASE (deve vir antes do script.js) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDe4wYlROJJ3Xh5kfemFbItjkHF6RKZscc",
+  authDomain: "indemetal-6af63.firebaseapp.com",
+  projectId: "indemetal-6af63",
+  storageBucket: "indemetal-6af63.firebasestorage.app",
+  messagingSenderId: "204244216570",
+  appId: "1:204244216570:web:5ea6e0ad1224c6c32cb743"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Histórico de Produção</title>
+<link rel="stylesheet" href="style.css">
+    <script src="js/auto-scale.js"></script>
+</head>
+
+<body>
+
+<h1 style="text-align:center;">HISTÓRICO DE PRODUÇÃO</h1>
+
+<table border="1" style="width:100%; color:white; text-align:center;">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Setor</th>
+            <th>Data</th>
+            <th>Produção</th>
+            <th>Observação</th>
+        </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+</table>
+
+<!-- FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDe4wYlROJJ3Xh5kfemFbItjkHF6RKZscc",
+  authDomain: "indemetal-6af63.firebaseapp.com",
+  projectId: "indemetal-6af63",
+  storageBucket: "indemetal-6af63.firebasestorage.app",
+  messagingSenderId: "204244216570",
+  appId: "1:204244216570:web:5ea6e0ad1224c6c32cb743"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// 🔥 CARREGAR DADOS EM TEMPO REAL
+db.collection("producao").onSnapshot(snapshot => {
+    const tabela = document.getElementById("tabela");
+    tabela.innerHTML = "";
+
+    snapshot.forEach(doc => {
+        const d = doc.data();
+
+        const linha = `
+            <tr>
+                <td>${d.nome || ''}</td>
+                <td>${d.setor || ''}</td>
+                <td>${d.data || ''}</td>
+                <td>${d.qtd_imp || 0}</td>
+                <td>${d.obs || ''}</td>
+            </tr>
+        `;
+
+        tabela.innerHTML += linha;
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INDEMETAL | Configurações</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-gray:   #7f7f7f;
+            --glass:     rgba(20,25,30,0.92);
+            --border:    rgba(0,242,255,0.3);
+            --neon-blue: #00f2ff;
+            --neon-red:  #ff0000;
+            --neon-green:#00ff95;
+            --neon-yel:  #ff9d00;
+            --surface2:  rgba(255,255,255,0.06);
+            --font:      'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            color: #fff;
+            font-family: var(--font);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ── HEADER / TOP-BAR ── */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        header h1 {
+            font-family: var(--font);
+            color: var(--neon-red);
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        header span {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.5);
+            display: block;
+            margin-top: 4px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .btn-voltar {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--neon-blue);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-family: var(--font);
+            font-size: 0.63rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all .2s;
+            white-space: nowrap;
+        }
+        .btn-voltar:hover {
+            background: rgba(0,242,255,0.1);
+            box-shadow: 0 0 12px rgba(0,242,255,0.3);
+        }
+
+        /* ── CONTAINER ── */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 0 80px; }
+
+        /* ── TÍTULOS DE SEÇÃO ── */
+        .section-title {
+            font-family: var(--font);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            padding-left: 12px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        /* ── CARD DE CONFIGURAÇÃO GERAL ── */
+        .card-geral {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .cfg-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px 22px;
+            box-shadow: 0 0 15px rgba(0,242,255,0.08);
+        }
+
+        .cfg-item label {
+            display: block;
+            font-size: 0.58rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-family: var(--font);
+        }
+
+        .cfg-item input, .cfg-item select {
+            width: 100%;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #111;
+            padding: 11px 14px;
+            font-family: var(--font);
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+        }
+
+        .cfg-item input:focus, .cfg-item select:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0,242,255,0.2);
+        }
+
+        /* ── GRID DE FAMÍLIAS ── */
+        .familias-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+
+        .familia-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+            transition: border-color .2s, box-shadow .2s;
+            min-width: 0;
+            box-shadow: 0 0 15px rgba(0,242,255,0.08);
+        }
+
+        .familia-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 22px rgba(0,242,255,0.22);
+        }
+
+        .familia-card .fam-nome {
+            font-family: var(--font);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* preview de capacidade dentro do card */
+        .fam-cap-preview {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.6);
+            background: var(--surface2);
+            border: 1px solid rgba(0,242,255,0.15);
+            border-radius: 8px;
+            padding: 7px 10px;
+            margin-bottom: 10px;
+            font-family: var(--font);
+        }
+        .fam-cap-preview strong { color: var(--neon-yel); font-weight: 700; }
+
+        /* label de seção dentro do card */
+        .fam-section-label {
+            font-size: 0.52rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin: 10px 0 6px;
+            font-family: var(--font);
+        }
+
+        .fam-campos {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+        }
+
+        .fam-campo label {
+            display: block;
+            font-size: 0.50rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.45);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            font-family: var(--font);
+        }
+
+        .fam-campo input {
+            width: 100%;
+            background: #fff;
+            border: 1px solid rgba(0,242,255,0.25);
+            border-radius: 8px;
+            color: #111;
+            padding: 8px 4px;
+            font-family: var(--font);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-align: center;
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+        }
+
+        .fam-campo input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0,242,255,0.18);
+        }
+
+        /* badge de cor por família */
+        .fam-badge {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            box-shadow: 0 0 6px currentColor;
+        }
+
+        /* ── ÁREA DE BOTÕES ── */
+        .acoes {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .btn-salvar {
+            background: var(--neon-blue);
+            color: #0b0f19;
+            border: none;
+            border-radius: 10px;
+            padding: 15px 50px;
+            font-family: var(--font);
+            font-size: 0.74rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-salvar:hover {
+            background: #55f5ff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px rgba(0,242,255,0.5);
+        }
+
+        .btn-reset {
+            background: transparent;
+            border: 1px solid rgba(255,0,0,0.4);
+            color: var(--neon-red);
+            border-radius: 10px;
+            padding: 15px 30px;
+            font-family: var(--font);
+            font-size: 0.74rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .btn-reset:hover {
+            background: rgba(255,0,0,0.1);
+            box-shadow: 0 0 14px rgba(255,0,0,0.35);
+        }
+
+        /* ── MENSAGEM ── */
+        #msg {
+            text-align: center;
+            margin-top: 20px;
+            font-family: var(--font);
+            font-size: 0.85rem;
+            font-weight: 700;
+            min-height: 24px;
+            letter-spacing: 1px;
+            color: var(--neon-green);
+        }
+
+        /* ── PREVIEW BAR (resumo da fábrica) ── */
+        .preview-bar {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 28px;
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            box-shadow: 0 0 20px rgba(0,242,255,0.1);
+        }
+
+        .preview-item { text-align: center; }
+
+        .preview-item .pv-label {
+            font-size: 0.58rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            font-family: var(--font);
+        }
+
+        .preview-item .pv-val {
+            font-family: var(--font);
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-top: 8px;
+            color: var(--neon-blue);
+        }
+
+        /* loader */
+        #loader {
+            text-align: center;
+            padding: 80px;
+            font-family: var(--font);
+            color: var(--neon-blue);
+            letter-spacing: 3px;
+            font-size: 0.78rem;
+            text-shadow: 0 0 10px rgba(0,242,255,0.6);
+        }
+
+        /* ── RESPONSIVO ── */
+        @media (max-width: 1400px) {
+            .familias-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 800px) {
+            .familias-grid { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 0 0 60px; }
+        }
+        @media (max-width: 500px) {
+            .familias-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <script src="js/auto-scale.js"></script>
+</head>
+<body>
+
+<!-- ── TELA DE PIN ─────────────────────────────── -->
+<div id="pinOverlay" style="
+    position:fixed;inset:0;z-index:9999;
+    background:#7f7f7f;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:50px 50px;
+    display:flex;align-items:center;justify-content:center;">
+
+    <div style="
+        background:rgba(20,25,30,0.95);
+        border:1px solid rgba(0,242,255,0.3);
+        border-radius:18px;
+        padding:40px 48px;
+        text-align:center;
+        box-shadow:0 0 40px rgba(0,0,0,0.6);
+        min-width:320px;">
+
+        <div style="font-family:'Orbitron',sans-serif;color:#ff0000;font-size:1.4rem;font-weight:900;letter-spacing:5px;margin-bottom:6px">INDEMETAL</div>
+        <div style="font-family:'Orbitron',sans-serif;color:rgba(255,255,255,0.35);font-size:0.55rem;letter-spacing:3px;margin-bottom:32px">PAINEL DE CONFIGURAÇÕES</div>
+
+        <div style="font-family:'Orbitron',sans-serif;color:rgba(255,255,255,0.5);font-size:0.58rem;letter-spacing:2px;margin-bottom:14px">INSIRA O PIN</div>
+
+        <!-- pontos visuais -->
+        <div id="pinDots" style="display:flex;justify-content:center;gap:12px;margin-bottom:24px">
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+            <span class="pin-dot"></span>
+        </div>
+
+        <!-- teclado numérico -->
+        <div id="pinTeclado" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:220px;margin:0 auto">
+            <button class="pin-key" onclick="_pinDigit('1')">1</button>
+            <button class="pin-key" onclick="_pinDigit('2')">2</button>
+            <button class="pin-key" onclick="_pinDigit('3')">3</button>
+            <button class="pin-key" onclick="_pinDigit('4')">4</button>
+            <button class="pin-key" onclick="_pinDigit('5')">5</button>
+            <button class="pin-key" onclick="_pinDigit('6')">6</button>
+            <button class="pin-key" onclick="_pinDigit('7')">7</button>
+            <button class="pin-key" onclick="_pinDigit('8')">8</button>
+            <button class="pin-key" onclick="_pinDigit('9')">9</button>
+            <button class="pin-key pin-key-voltar" onclick="_pinBack()">⌫</button>
+            <button class="pin-key" onclick="_pinDigit('0')">0</button>
+            <button class="pin-key pin-key-ok" onclick="_pinConfirm()">OK</button>
+        </div>
+
+        <div id="pinErro" style="
+            font-family:'Orbitron',sans-serif;color:#ff4444;font-size:0.55rem;
+            letter-spacing:1.5px;margin-top:18px;min-height:18px;"></div>
+
+        <button onclick="window.location='index.html'" style="
+            margin-top:24px;background:transparent;border:none;
+            color:rgba(255,255,255,0.25);font-family:'Orbitron',sans-serif;
+            font-size:0.50rem;letter-spacing:1px;cursor:pointer;">← VOLTAR AO MENU</button>
+    </div>
+</div>
+
+<style>
+.pin-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid rgba(0,242,255,0.4);
+    background: transparent;
+    transition: background .15s, border-color .15s;
+    display: inline-block;
+}
+.pin-dot.filled { background: #00f2ff; border-color: #00f2ff; }
+.pin-dot.erro   { background: #ff4444; border-color: #ff4444; }
+
+.pin-key {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,242,255,0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .15s;
+}
+.pin-key:hover        { background: rgba(0,242,255,0.12); border-color: #00f2ff; }
+.pin-key:active       { transform: scale(0.93); }
+.pin-key-ok     { background: rgba(0,242,255,0.15); border-color: rgba(0,242,255,0.5); color: #00f2ff; }
+.pin-key-voltar { color: rgba(255,255,255,0.4); }
+</style>
+
+<!-- ── CONTEÚDO (oculto até PIN correto) ───────── -->
+<div id="paginaConteudo" style="display:none">
+
+<header>
+    <div>
+        <h1>INDEMETAL</h1>
+        <span>PAINEL DE CONFIGURAÇÕES</span>
+    </div>
+    <button class="btn-voltar" onclick="window.location='index.html'">← VOLTAR</button>
+</header>
+
+<div class="container" id="app">
+    <div id="loader">CARREGANDO CONFIGURAÇÕES...</div>
+</div>
+
+</div><!-- fim paginaConteudo -->
+
+<!-- Firebase v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="js/firebase.js"></script>
+<script src="js/configuracoes-painel.js"></script>
+
+<script>
+// ── PIN DE ACESSO ────────────────────────────────
+// Para alterar o PIN, mude apenas este valor:
+const _PIN_CORRETO = "1234";
+
+let _pinAtual = "";
+
+function _pinDigit(d) {
+    if (_pinAtual.length >= 4) return;
+    _pinAtual += d;
+    _pinAtualizarDots();
+    if (_pinAtual.length === 4) _pinConfirm();
+}
+
+function _pinBack() {
+    _pinAtual = _pinAtual.slice(0, -1);
+    _pinAtualizarDots();
+    document.getElementById("pinErro").textContent = "";
+}
+
+function _pinAtualizarDots() {
+    document.querySelectorAll(".pin-dot").forEach((dot, i) => {
+        dot.classList.toggle("filled", i < _pinAtual.length);
+        dot.classList.remove("erro");
+    });
+}
+
+function _pinConfirm() {
+    if (_pinAtual === _PIN_CORRETO) {
+        // PIN correto — esconde overlay, mostra conteúdo
+        document.getElementById("pinOverlay").style.display   = "none";
+        document.getElementById("paginaConteudo").style.display = "block";
+    } else {
+        // PIN errado — treme os pontos e limpa
+        document.querySelectorAll(".pin-dot").forEach(d => {
+            d.classList.remove("filled");
+            d.classList.add("erro");
+        });
+        document.getElementById("pinErro").textContent = "PIN INCORRETO";
+        setTimeout(() => {
+            document.querySelectorAll(".pin-dot").forEach(d => d.classList.remove("erro"));
+            document.getElementById("pinErro").textContent = "";
+        }, 900);
+        _pinAtual = "";
+    }
+}
+
+// Suporte ao teclado físico
+document.addEventListener("keydown", e => {
+    if (document.getElementById("pinOverlay").style.display === "none") return;
+    if (e.key >= "0" && e.key <= "9") _pinDigit(e.key);
+    else if (e.key === "Backspace")   _pinBack();
+    else if (e.key === "Enter")       _pinConfirm();
+});
+</script>
+
+</body>
+</html>
