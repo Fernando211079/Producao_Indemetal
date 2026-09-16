@@ -1,0 +1,846 @@
+/*==================================================
+  INDEMETAL — Cadastro de OPs
+  Tema: graficos.html — glass dark, neon cyan/red/green
+==================================================*/
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-gray:    #7f7f7f;
+    --glass:      rgba(20,25,30,0.92);
+    --glass-lite: rgba(255,255,255,0.05);
+    --border:     rgba(0,242,255,0.3);
+    --border-hi:  rgba(0,242,255,0.8);
+
+    --neon-blue:  #00f2ff;
+    --neon-red:   #ff0000;
+    --neon-green: #00ff95;
+    --neon-yellow:#ff9d00;
+    --neon-purple:#c084fc;
+
+    --text-1:  #ffffff;
+    --text-2:  #e0e0e0;
+    --text-3:  #b8b8b8;
+    --text-4:  #7a7a7a;
+
+    --red:    var(--neon-red);
+    --cyan:   var(--neon-blue);
+    --green:  var(--neon-green);
+    --primary: var(--neon-blue);
+
+    --font:  'Orbitron', sans-serif;
+    --font2: 'Rajdhani', sans-serif;
+    --radius: 15px;
+}
+
+body {
+    background-color: var(--bg-gray);
+    background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-attachment: fixed;
+    font-family: var(--font2);
+    color: var(--text-2);
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/*==================================================
+  HEADER / TOP-BAR
+==================================================*/
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    position: sticky;
+    top: 12px;
+    z-index: 100;
+}
+
+.logo h1 {
+    color: var(--neon-red);
+    font-family: var(--font);
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    margin: 0;
+}
+
+.logo span {
+    color: var(--neon-blue);
+    font-size: 0.65rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+}
+
+.btn-voltar {
+    background: transparent;
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 0.63rem;
+    letter-spacing: 1px;
+    transition: all .2s;
+    white-space: nowrap;
+}
+.btn-voltar:hover {
+    background: rgba(0,242,255,0.12);
+    box-shadow: 0 0 10px rgba(0,242,255,0.3);
+}
+
+/*==================================================
+  CONTAINER
+==================================================*/
+
+.container {
+    width: 98%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+.container h2 {
+    margin-bottom: 18px;
+    color: var(--text-1);
+    font-size: 1.2rem;
+    font-family: var(--font);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/*==================================================
+  KPI CARDS
+==================================================*/
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(0,0,0,0.95), rgba(15,15,15,0.92));
+    border: 1px solid rgba(0,242,255,0.35);
+    border-left: 4px solid var(--neon-blue);
+    border-radius: 18px;
+    padding: 16px 14px;
+    min-height: 90px;
+    box-shadow: 0 0 15px rgba(0,242,255,0.12);
+    transition: 0.3s ease;
+    animation: fadeIn .35s ease;
+}
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0,242,255,0.8);
+    box-shadow: 0 0 25px rgba(0,242,255,0.25);
+}
+
+.card h3 {
+    color: var(--text-3);
+    font-size: 0.62rem;
+    font-family: var(--font);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.numero {
+    margin-top: 6px;
+    font-size: 1.8rem;
+    font-family: var(--font);
+    font-weight: 900;
+    color: var(--text-1);
+    line-height: 1;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/*==================================================
+  LAYOUT PRINCIPAL
+==================================================*/
+
+.layoutPrincipal {
+    display: grid;
+    grid-template-columns: 2fr 340px;
+    gap: 20px;
+    align-items: start;
+}
+
+.painelCadastro {
+    display: flex;
+    flex-direction: column;
+}
+
+/*==================================================
+  BLOCO / CARD DE FORMULÁRIO
+==================================================*/
+
+.bloco {
+    background: var(--glass);
+    border-radius: 18px;
+    padding: 22px 26px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    animation: fadeIn .35s ease;
+}
+
+.bloco h3 {
+    font-family: var(--font);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--neon-blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-left: 12px;
+    border-left: 4px solid var(--neon-red);
+    border-bottom: 1px solid var(--border);
+}
+
+/*==================================================
+  LINHAS E CAMPOS
+==================================================*/
+
+.linha {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.linha:last-child { margin-bottom: 0; }
+
+.campo { display: flex; flex-direction: column; }
+
+.campo label {
+    margin-bottom: 7px;
+    font-size: 0.60rem;
+    font-weight: 600;
+    color: var(--text-3);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-family: var(--font);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 0.90rem;
+    font-family: var(--font2);
+    font-weight: 600;
+    transition: box-shadow .2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--neon-blue);
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/*==================================================
+  CAMPO IMPRESSÕES — destaque
+==================================================*/
+
+#impressoes {
+    background: #001a1a;
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    font-weight: 900;
+    text-align: center;
+    font-family: var(--font);
+    letter-spacing: 1px;
+    border: 1px solid rgba(0,242,255,0.5);
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+#impressoes:focus {
+    box-shadow: 0 0 0 2px var(--neon-blue), 0 0 15px rgba(0,242,255,0.3);
+}
+
+/*==================================================
+  PAINEL INTELIGENTE (lateral)
+==================================================*/
+
+.painelInfo {
+    background: var(--glass);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 22px;
+    position: sticky;
+    top: 80px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    animation: fadeIn .35s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.painelInfo h3 {
+    font-family: var(--font);
+    font-size: 0.70rem;
+    font-weight: 700;
+    color: var(--neon-blue);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+    border-left: 4px solid var(--neon-red);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* Wrapper dos infoCards — cresce para preencher o painel */
+.infoCards-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/*==================================================
+  INFO CARDS DO PAINEL
+==================================================*/
+
+.infoCard {
+    background: rgba(0,242,255,0.05);
+    border: 1px solid rgba(0,242,255,0.2);
+    border-left: 3px solid var(--neon-blue);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    transition: transform .2s;
+}
+.infoCard:hover {
+    transform: translateY(-2px);
+    background: rgba(0,242,255,0.08);
+}
+
+/* Card duplo: Tempo previsto + Dias necessários lado a lado */
+.infoCard-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.infoCard-duplo .infoCard {
+    margin-bottom: 0;
+}
+
+/* Card de status: destaque maior */
+.infoCard--status {
+    border-left-color: var(--neon-green);
+    background: rgba(0,255,149,0.05);
+    margin-bottom: 0;
+}
+
+.infoCard span {
+    display: block;
+    font-size: 0.58rem;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    font-family: var(--font);
+}
+
+.infoCard strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--text-1);
+    font-weight: 900;
+    font-family: var(--font);
+    line-height: 1.1;
+    text-shadow: 0 0 8px rgba(255,255,255,0.15);
+}
+
+/*==================================================
+  TOGGLE: ADESIVO LÍQUIDO
+==================================================*/
+
+.adesivo-toggle-wrap {
+    margin: 10px 0 4px;
+    padding: 10px 14px;
+    background: rgba(192, 132, 252, 0.07);
+    border: 1px solid rgba(192, 132, 252, 0.35);
+    border-left: 3px solid var(--neon-purple);
+    border-radius: 8px;
+    transition: background .2s;
+}
+
+.adesivo-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.adesivo-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.adesivo-toggle-track {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(192,132,252,0.4);
+    border-radius: 12px;
+    flex-shrink: 0;
+    transition: background .25s, border-color .25s;
+}
+
+.adesivo-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: rgba(192,132,252,0.6);
+    border-radius: 50%;
+    transition: transform .25s, background .25s;
+}
+
+.adesivo-toggle input:checked ~ .adesivo-toggle-track {
+    background: rgba(192,132,252,0.25);
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 8px rgba(192,132,252,0.4);
+}
+
+.adesivo-toggle input:checked ~ .adesivo-toggle-track .adesivo-toggle-thumb {
+    transform: translateX(20px);
+    background: var(--neon-purple);
+}
+
+.adesivo-toggle-label {
+    font-family: var(--font);
+    font-size: 0.60rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--neon-purple);
+    text-transform: uppercase;
+}
+
+/*==================================================
+  BOTÃO SALVAR
+==================================================*/
+
+.acoes {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.btn-salvar {
+    width: 100%;
+    max-width: 420px;
+    background: var(--neon-blue);
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    transition: all .25s;
+}
+.btn-salvar:hover {
+    background: #33f7ff;
+    box-shadow: 0 0 20px rgba(0,242,255,0.5);
+    transform: translateY(-2px);
+}
+
+/*==================================================
+  MENSAGEM DO SISTEMA
+==================================================*/
+
+#mensagemSistema {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 0.90rem;
+    font-weight: 700;
+    color: var(--neon-green);
+    min-height: 22px;
+    font-family: var(--font2);
+    text-shadow: 0 0 8px var(--neon-green);
+}
+
+/*==================================================
+  TABELA DAS OPs
+==================================================*/
+
+.lista {
+    margin-top: 24px;
+    background: var(--glass);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    animation: fadeIn .35s ease;
+}
+
+.lista h3 {
+    font-family: var(--font);
+    font-size: 0.70rem;
+    font-weight: 700;
+    color: var(--neon-blue);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--neon-red);
+}
+
+/*==================================================
+  FILTROS
+==================================================*/
+
+.barra-filtros {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.barra-filtros .barra-pesquisa {
+    flex: 1;
+    min-width: 220px;
+    margin-bottom: 0;
+}
+
+.filtro-status-wrap {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-filtro {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-3);
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 0.58rem;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+}
+.btn-filtro:hover {
+    border-color: var(--neon-blue);
+    color: var(--neon-blue);
+}
+.btn-filtro.ativo {
+    background: var(--neon-blue);
+    border-color: var(--neon-blue);
+    color: #000;
+    font-weight: 900;
+    box-shadow: 0 0 10px rgba(0,242,255,0.4);
+}
+
+/*==================================================
+  BARRA DE PESQUISA
+==================================================*/
+
+.barra-pesquisa { margin-bottom: 16px; }
+
+.barra-pesquisa input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: var(--text-1);
+    font-size: 0.92rem;
+    font-family: var(--font2);
+    transition: border-color .2s, box-shadow .2s;
+}
+.barra-pesquisa input::placeholder { color: var(--text-4); }
+.barra-pesquisa input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 0 2px rgba(0,242,255,0.2);
+}
+
+/*==================================================
+  TABELA
+==================================================*/
+
+.lista table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+}
+
+.lista thead { background: rgba(0,0,0,0.5); }
+
+.lista th {
+    color: var(--neon-blue);
+    padding: 12px 14px;
+    font-size: 0.58rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font);
+    white-space: nowrap;
+}
+
+.lista td {
+    padding: 11px 14px;
+    background: rgba(255,255,255,0.04);
+    border-top: 1px solid rgba(0,242,255,0.08);
+    border-bottom: 1px solid rgba(0,242,255,0.08);
+    font-family: var(--font2);
+    color: var(--text-2);
+    font-size: 0.90rem;
+    text-align: center;
+}
+
+.lista tbody tr { transition: background .15s; }
+.lista tbody tr:hover td {
+    background: rgba(0,242,255,0.07);
+    color: var(--text-1);
+}
+
+.linha-finalizada td { opacity: 0.5; }
+.linha-finalizada:hover td { opacity: 1; }
+
+/*==================================================
+  BOTÕES DA TABELA
+==================================================*/
+
+.btnEditar {
+    background: var(--neon-yellow);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-weight: 900;
+    font-family: var(--font);
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+    transition: all .2s;
+    margin-right: 4px;
+}
+.btnEditar:hover {
+    box-shadow: 0 0 10px rgba(255,157,0,0.5);
+    transform: translateY(-1px);
+}
+
+.btnExcluir {
+    background: transparent;
+    border: 1px solid rgba(255,0,0,0.5);
+    color: var(--neon-red);
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-weight: 900;
+    font-family: var(--font);
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+    transition: all .2s;
+}
+.btnExcluir:hover {
+    background: rgba(255,0,0,0.15);
+    box-shadow: 0 0 8px rgba(255,0,0,0.4);
+}
+
+.btnFinalizar {
+    background: var(--neon-green);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-weight: 900;
+    font-family: var(--font);
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+    transition: all .2s;
+    margin-right: 4px;
+}
+.btnFinalizar:hover {
+    background: #33ffb0;
+    box-shadow: 0 0 10px rgba(0,255,149,0.5);
+    transform: translateY(-1px);
+}
+
+.btnReabrir {
+    background: transparent;
+    border: 1px solid rgba(0,242,255,0.5);
+    color: var(--neon-blue);
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    font-weight: 900;
+    font-family: var(--font);
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+    transition: all .2s;
+    margin-right: 4px;
+}
+.btnReabrir:hover {
+    background: rgba(0,242,255,0.12);
+    box-shadow: 0 0 8px rgba(0,242,255,0.3);
+}
+
+/*==================================================
+  LAYOUT LINHA SUPERIOR (3 colunas)
+==================================================*/
+
+.linhaSuperior {
+    display: flex;
+    gap: 18px;
+    align-items: start;
+    margin-bottom: 18px;
+}
+
+.painelCadastro,
+.painelProducao,
+.painelPlanejamento {
+    display: flex;
+    flex-direction: column;
+}
+
+.painelCadastro .bloco,
+.painelProducao .bloco,
+.painelPlanejamento .bloco {
+    height: 100%;
+}
+
+.linhaFormulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+/*==================================================
+  ANIMAÇÕES
+==================================================*/
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/*==================================================
+  RESPONSIVO
+==================================================*/
+
+/* ── Tablet largo (1024px) ── */
+@media (max-width: 1024px) {
+    body              { padding: 14px; }
+
+    /* header compacto */
+    .top-bar          { padding: 12px 18px; }
+    .logo h1          { font-size: 1.3rem; letter-spacing: 3px; }
+    .logo span        { font-size: 0.58rem; }
+    .btn-voltar       { padding: 7px 14px; font-size: 0.58rem; }
+
+    /* KPIs: 2 por linha em tablet */
+    .cards            { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+    /* layout principal: painel inteligente vai para baixo */
+    .layoutPrincipal  { grid-template-columns: 1fr; }
+    .painelInfo       { position: relative; top: 0; }
+
+    /* painel inteligente: cards em grid 2 colunas */
+    .infoCards-wrap   { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .infoCard-duplo   { grid-column: 1 / -1; }
+    .infoCard--status { grid-column: 1 / -1; }
+    .infoCard         { margin-bottom: 0; }
+
+    /* formulário: campos em 2 colunas */
+    .linha            { grid-template-columns: repeat(2, 1fr); }
+
+    /* campos impressões/tempo/dias mantém 3 */
+    .bloco:nth-child(2) .linha:last-child { grid-template-columns: repeat(3, 1fr); }
+
+    /* tabela da baixa-op: scroll horizontal */
+    .lista            { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .lista table      { min-width: 860px; }
+    .lista th, .lista td { padding: 9px 10px; font-size: 0.8rem; }
+
+    /* filtros: wrap melhor */
+    .barra-filtros    { gap: 8px; }
+    .filtro-familia-wrap { gap: 6px; }
+    .chip-fam         { font-size: 0.55rem; padding: 5px 10px; }
+    .btn-filtro       { padding: 6px 12px; font-size: 0.54rem; }
+}
+
+/* ── Tablet estreito (768px) ── */
+@media (max-width: 768px) {
+    body              { padding: 10px; }
+
+    /* header empilha */
+    .top-bar          { flex-direction: row; flex-wrap: wrap; gap: 10px; padding: 12px 14px; }
+
+    /* KPIs: 2 colunas */
+    .cards            { grid-template-columns: repeat(2, 1fr); }
+
+    /* formulário: 1 campo por linha */
+    .linha            { grid-template-columns: 1fr; }
+
+    /* botão salvar: largura total */
+    .btn-salvar       { width: 100%; max-width: 100%; }
+
+    /* painel inteligente: grid 2 colunas continua */
+    .infoCards-wrap   { grid-template-columns: 1fr 1fr; }
+
+    /* filtros: coluna */
+    .barra-filtros    { flex-direction: column; }
+    .filtro-status-wrap { flex-wrap: wrap; }
+    .barra-pesquisa   { min-width: unset; width: 100%; }
+}
+
+/* ── Desktop: painel inteligente sticky ── */
+@media (min-width: 1401px) {
+    .painelInfo       { position: sticky; top: 80px; }
+}
+
+/* ── Mobile (600px) ── */
+@media (max-width: 600px) {
+    .cards            { grid-template-columns: 1fr; }
+    body              { padding: 10px; }
+    .top-bar          { flex-direction: column; height: auto; padding: 14px; gap: 10px; border-radius: 10px; }
+    .btn-salvar       { width: 100%; }
+    .bloco            { padding: 14px; }
+    .barra-filtros    { flex-direction: column; }
+    .infoCards-wrap   { grid-template-columns: 1fr; }
+    .infoCard-duplo   { grid-template-columns: 1fr 1fr; }
+}

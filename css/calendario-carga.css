@@ -1,0 +1,325 @@
+/* =============================================================
+   INDEMETAL — Calendário de Carga + Filtro de Família
+   Tema neon glass (idêntico a graficos.html)
+   ============================================================= */
+
+/* ── VARIÁVEIS DE COR POR FAMÍLIA ── */
+:root {
+    --cor-rotativa:          #00f2ff;
+    --cor-semiautomatica:    #00ff95;
+    --cor-paralela:          #ff9d00;
+    --cor-manual:            #ff5500;
+    --cor-sala-limpa:        #a78bfa;
+    --cor-adesivo-liquido:   #f472b6;
+}
+
+/* ── FILTRO DE FAMÍLIA NA LISTAGEM ── */
+
+.filtro-familia-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.dot-fam {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.chip-fam {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid rgba(0,242,255,0.2);
+    color: rgba(255,255,255,0.5);
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.50rem;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: all .18s;
+    white-space: nowrap;
+}
+.chip-fam:hover {
+    border-color: rgba(0,242,255,0.55);
+    color: #fff;
+}
+.chip-fam.ativo[data-fam="TODAS"]           { background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.35); }
+.chip-fam.ativo[data-fam="rotativa"]        { background: rgba(0,242,255,0.18);   color: #00f2ff; border-color: #00f2ff; }
+.chip-fam.ativo[data-fam="semiautomatica"]  { background: rgba(0,255,149,0.18);   color: #00ff95; border-color: #00ff95; }
+.chip-fam.ativo[data-fam="paralela"]        { background: rgba(255,157,0,0.18);   color: #ff9d00; border-color: #ff9d00; }
+.chip-fam.ativo[data-fam="manual"]          { background: rgba(255,85,0,0.18);    color: #ff5500; border-color: #ff5500; }
+.chip-fam.ativo[data-fam="sala-limpa"]      { background: rgba(167,139,250,0.18); color: #a78bfa; border-color: #a78bfa; }
+.chip-fam.ativo[data-fam="adesivo-liquido"] { background: rgba(244,114,182,0.18); color: #f472b6; border-color: #f472b6; }
+
+/* ── SEÇÃO DO CALENDÁRIO ── */
+
+.cal-section {
+    background: rgba(20,25,30,0.92);
+    border: 1px solid rgba(0,242,255,0.3);
+    border-radius: 16px;
+    padding: 24px 28px 28px;
+    margin-top: 32px;
+    box-shadow: 0 0 24px rgba(0,242,255,0.08);
+}
+
+/* ── CABEÇALHO DO CALENDÁRIO ── */
+
+.cal-section-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0,242,255,0.15);
+    padding-bottom: 18px;
+}
+
+.cal-titulo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.cal-titulo {
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-left: 3px solid #00f2ff;
+    padding-left: 10px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* navegação mês */
+.cal-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cal-btn-nav {
+    background: transparent;
+    border: 1px solid rgba(0,242,255,0.3);
+    color: #00f2ff;
+    padding: 6px 13px;
+    border-radius: 8px;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.52rem;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all .18s;
+}
+.cal-btn-nav:hover {
+    background: rgba(0,242,255,0.1);
+    box-shadow: 0 0 10px rgba(0,242,255,0.25);
+}
+
+.cal-mes-label {
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    min-width: 180px;
+    text-align: center;
+}
+
+/* chips de família no calendário */
+.cal-filtro-familia {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+}
+
+.cal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent;
+    border: 1px solid rgba(0,242,255,0.2);
+    color: rgba(255,255,255,0.45);
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.48rem;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: all .18s;
+    white-space: nowrap;
+}
+.cal-chip:hover { border-color: rgba(0,242,255,0.5); color: #fff; }
+.cal-chip.ativo[data-fam="TODAS"]           { background: rgba(255,255,255,0.13); color: #fff;    border-color: rgba(255,255,255,0.3); }
+.cal-chip.ativo[data-fam="rotativa"]        { background: rgba(0,242,255,0.16);   color: #00f2ff; border-color: #00f2ff; }
+.cal-chip.ativo[data-fam="semiautomatica"]  { background: rgba(0,255,149,0.16);   color: #00ff95; border-color: #00ff95; }
+.cal-chip.ativo[data-fam="paralela"]        { background: rgba(255,157,0,0.16);   color: #ff9d00; border-color: #ff9d00; }
+.cal-chip.ativo[data-fam="manual"]          { background: rgba(255,85,0,0.16);    color: #ff5500; border-color: #ff5500; }
+.cal-chip.ativo[data-fam="sala-limpa"]      { background: rgba(167,139,250,0.16); color: #a78bfa; border-color: #a78bfa; }
+.cal-chip.ativo[data-fam="adesivo-liquido"] { background: rgba(244,114,182,0.16); color: #f472b6; border-color: #f472b6; }
+
+/* legenda */
+.cal-legenda {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+.cal-leg-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.52rem;
+    color: rgba(255,255,255,0.5);
+    font-family: var(--font), 'Orbitron', sans-serif;
+    letter-spacing: 0.5px;
+}
+.cal-leg-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+.cal-leg-dot.livre   { background: rgba(0,255,149,0.2);  border: 1px solid rgba(0,255,149,0.6); }
+.cal-leg-dot.atencao { background: rgba(255,157,0,0.2);  border: 1px solid rgba(255,157,0,0.6); }
+.cal-leg-dot.critico { background: rgba(255,0,0,0.2);    border: 1px solid rgba(255,50,50,0.7); }
+
+/* ── GRADE DO CALENDÁRIO ── */
+
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.cal-dow {
+    text-align: center;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.46rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1.5px;
+    padding: 4px 0 8px;
+    font-weight: 700;
+}
+.cal-dow.fim { color: rgba(255,80,80,0.35); }
+
+/* ── CÉLULA DE DIA ── */
+
+.cal-dia {
+    border-radius: 8px;
+    min-height: 80px;
+    padding: 7px 8px 14px;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .15s, box-shadow .15s;
+}
+
+.cal-dia.vazio  { background: transparent; }
+.cal-dia.fds    { background: rgba(255,255,255,0.018); border-color: rgba(255,255,255,0.04); }
+.cal-dia.util   { background: rgba(255,255,255,0.035); border-color: rgba(255,255,255,0.07); }
+.cal-dia.util:hover { border-color: rgba(0,242,255,0.3); }
+.cal-dia.hoje   { border-color: #00f2ff !important; box-shadow: 0 0 10px rgba(0,242,255,0.25); }
+
+/* cores de ocupação */
+.cal-dia.livre   { background: rgba(0,255,149,0.07);  border-color: rgba(0,255,149,0.22); }
+.cal-dia.atencao { background: rgba(255,157,0,0.10);  border-color: rgba(255,157,0,0.32); }
+.cal-dia.critico { background: rgba(255,0,0,0.12);    border-color: rgba(255,50,50,0.45); }
+
+/* número do dia */
+.cal-dia-num {
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 5px;
+    line-height: 1;
+}
+.cal-dia-num.hoje  { color: #00f2ff; }
+.cal-dia-num.muted { color: rgba(255,255,255,0.18); }
+
+/* quantidade de impressões do dia */
+.cal-imp {
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.80rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    margin: 4px 0 2px;
+    line-height: 1;
+    transition: color .2s;
+}
+
+/* percentual */
+.cal-dia-pct {
+    position: absolute;
+    bottom: 6px;
+    right: 7px;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    font-weight: 700;
+}
+.cal-dia-pct.alerta  { color: #ff9d00; }
+.cal-dia-pct.critico { color: #ff4444; }
+
+/* barra de fundo */
+.cal-barra {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 0 0 8px 8px;
+    transition: width .3s;
+}
+
+/* badge OPs fora do mês */
+.cal-badge-fora {
+    font-size: 0.50rem;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    color: #ff9d00;
+    background: rgba(255,157,0,0.12);
+    border: 1px solid rgba(255,157,0,0.4);
+    border-radius: 20px;
+    padding: 3px 10px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* loader */
+.cal-loader {
+    text-align: center;
+    padding: 60px;
+    font-family: var(--font), 'Orbitron', sans-serif;
+    font-size: 0.72rem;
+    color: #00f2ff;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(0,242,255,0.5);
+}
+
+/* ── RESPONSIVO ── */
+@media (max-width: 900px) {
+    .cal-dia { min-height: 60px; }
+    .cal-imp { font-size: 0.65rem; }
+    .cal-section-header { flex-direction: column; align-items: flex-start; }
+    .cal-legenda { margin-left: 0; }
+}
+@media (max-width: 600px) {
+    .cal-dia { min-height: 44px; padding: 5px 4px 12px; }
+    .cal-dow  { font-size: 0.40rem; }
+    .cal-mes-label { min-width: 130px; font-size: 0.6rem; }
+    .filtro-familia-wrap { gap: 4px; }
+    .chip-fam { padding: 5px 9px; font-size: 0.46rem; }
+}
